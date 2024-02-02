@@ -1,0 +1,3200 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>JavaScript Notes-Chai Aur Code</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="43829fc9-1eb6-4951-aa5b-a1d8dd27358f" class="page sans"><header><h1 class="page-title">JavaScript Notes-Chai Aur Code</h1><p class="page-description"></p></header><div class="page-body"><h2 id="960640c6-c154-4295-9264-60b366f24e91" class="">Lect-2: <strong><strong>Setting up environment in local machine for Javascript:</strong></strong></h2><ul id="e4e6721b-9f44-48a8-8d8f-2013f7f2124c" class="bulleted-list"><li style="list-style-type:disc">node.js is a javascript environment for running javascript files.</li></ul><ul id="c49522b0-637c-4cd8-a6a9-bbf92bf9728c" class="bulleted-list"><li style="list-style-type:disc">install node.js on your system to get started</li></ul><ul id="96eaeded-15e5-46ff-bfa4-744c0fd214fc" class="bulleted-list"><li style="list-style-type:disc">use code editors like VS Code, Sublime, etc.</li></ul><ul id="603a2a34-43ee-4b7c-b2ac-91ad016afa6f" class="bulleted-list"><li style="list-style-type:disc">use <span style="border-bottom:0.05em solid"><em>node --version</em></span> in terminal to check if node.js is installed</li></ul><ul id="2d3876aa-224b-4832-9a68-08d7c6385ed4" class="bulleted-list"><li style="list-style-type:disc">use <span style="border-bottom:0.05em solid">node fileName.js</span> to js code</li></ul><h2 id="29c4e18a-4a54-4680-9cc8-4f3ca4f90261" class="">Lect-3: <strong><strong>Save and work on Github for Javascript</strong></strong></h2><ul id="c5aab6ae-f2fa-41a1-8ff1-9dc65c0e706c" class="bulleted-list"><li style="list-style-type:disc">create a GitHub repository</li></ul><ul id="0b758c72-8eb8-4c94-8b40-6091ecc0f060" class="bulleted-list"><li style="list-style-type:disc">To open js runtime environment at GitHub( it is same as what we have on vs code) : Click on “Code”—&gt;”Codespaces”—&gt;”Create Codespace on main” —&gt;&gt; code editor similar to vs code will open.</li></ul><ul id="3e54c772-46fa-4055-95f7-3b4f81dfc819" class="bulleted-list"><li style="list-style-type:disc">Now to use this workspace we need to install node.js:-  “View”—&gt;”Command Palate”—&gt;”Add Dev container Config file”—&gt;”node.js and javascript”—&gt; chose version—&gt;Rebuild Now—&gt;your runtime environment is ready</li></ul><ul id="bea86419-c067-4a7b-80d9-90403a9976ea" class="bulleted-list"><li style="list-style-type:disc">Now create a Folder and test.js file inside it and write your code and run it using terminal. (But progress is not showing in repo)</li></ul><ul id="c6b2da06-9908-471c-a122-a47e97d58e33" class="bulleted-list"><li style="list-style-type:disc">To save: Click on “Source Control icon”—&gt;Select all the files that you want to save by clicking on + —&gt; Write a commit message —&gt;“Commit”—&gt; Step-2 —&gt; PUSH</li></ul><ul id="af1655a7-ce5f-4ed4-b270-f487dfa25fba" class="bulleted-list"><li style="list-style-type:disc">Always remember to close the running machine.—&gt; In the top-left corner of <a href="http://github.com/">GitHub.com</a>, select Three bars—&gt; then click  Codespaces—&gt;To the right of the codespace you want to delete, then click  Delete.</li></ul><ul id="2deee4fd-cfe5-4c67-8f35-d2384ce81357" class="bulleted-list"><li style="list-style-type:disc">Performing above action wont delete any files. It will just close the running machine.</li></ul><h2 id="8acf5e9f-6574-49b8-8deb-242dfc7eede3" class="">Lect-4: <strong><strong>Let, const and var ki kahani</strong></strong></h2><ul id="36d8c222-6fb0-40ee-9a29-cfc58da230ec" class="bulleted-list"><li style="list-style-type:disc">const accountID = 1444553<br/>accountID = 2  //not allowed- value of const cant be changed or modified<br/></li></ul><ul id="98266ae5-6099-4d19-8e06-8a30f8f9ec15" class="bulleted-list"><li style="list-style-type:disc"></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fe6d1548-bbcf-48ed-8506-e30ef5493442" class="code"><code class="language-JavaScript">const accountID = 14453
+let accountEmail = &quot;test@gmail.com&quot;
+/*
+prefer not to use var because of functional scope
+*/
+var accountPassword = &quot;Aqw2345@3&quot;
+accountCity = &quot;Jaipur&quot; //correct but not recommended
+let accountState; //value is not defined --&gt; undefined
+
+console.log(accountID)
+console.log(accountEmail)
+
+// Instaed of using console everytime, we can use console.table([]) to get all data in tabular form
+
+console.table([accountID, accountEmail, accountPassword, accountCity, accountState])
+
+//Note--&gt; It is not necessary to use ; at the end of the statement in js</code></pre><figure id="61f6839e-41d0-44f3-acaf-e37276106265" class="image"><a href="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled.png"><img style="width:192px" src="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled.png"/></a></figure><h2 id="b25f9912-3c77-4975-ba8e-0a8cfb7f1058" class="">Lect-5: <strong><strong>Datatypes and ECMA standards</strong></strong></h2><ul id="d9c8bfce-8953-4a83-a0ca-f9c6ee5c5756" class="bulleted-list"><li style="list-style-type:disc">&quot;use strict&quot;; //treat all JS code as newer version</li></ul><ul id="f8008646-d0a6-4757-89ba-eb8a3590ce84" class="bulleted-list"><li style="list-style-type:disc">alert( 3 + 3) //not allowed in node, allowed in Browser</li></ul><ul id="6cd91dd0-1409-4f56-8828-55300d0f35e7" class="bulleted-list"><li style="list-style-type:disc">high priority should be given on code readability</li></ul><ul id="3e840343-a7a3-402f-9f69-899f61baa707" class="bulleted-list"><li style="list-style-type:disc">1)use &#x27;mdn docs&#x27; whenever you are stuck - preferable<br/>2) tc39 - js official documentation<br/><br/></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4af3891e-7d59-48f0-aefd-3a7ae1988bc4" class="code"><code class="language-undefined">let age = 16
+let name = &quot;Hitesh&quot;
+let isLoggedIn = false
+let state
+let gender = null
+
+//number =&gt; 2^53 range
+//bigint =&gt; for larger values
+//string =&gt; &quot;&quot;
+//boolean =&gt; true/false
+//null =&gt; standalone value ; typeof null =&gt; Object
+//undefined =&gt; value not defined
+//symbol =&gt; unique
+
+//object =&gt; 
+
+console.log(typeof age); //number
+console.log(typeof &quot;hitesh&quot;); //string
+console.log(typeof null); //Object
+console.log(typeof undefined); //undefined</code></pre><h2 id="a7f56c36-27cd-4cf1-88df-1e9f7e900293" class="">Lect-6: <strong><strong>Datatype conversion confusion</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c9fdfb15-f428-42f5-b818-a114953d3b7b" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">let score1 = 33;
+console.log(typeof score1); //number
+
+/* ------------Conversion to number ------ */
+let score2 = &quot;33&quot;;
+console.log(typeof score2);
+let score2InNumber = Number(score2); //Number --&gt; string is converted into a number
+console.log(typeof score2InNumber);
+
+let score3 = &quot;33aaa&quot;;
+console.log(typeof score3);
+let score3InNumber = Number(score3);
+//Note: this is not a number but still js convert it into a number. Its type will be number, but value will be &quot;NaN&quot;. So whenever you convert string to number always check for this NaN case.
+console.log(typeof score3InNumber); //number
+console.log(score3InNumber); //NaN
+
+let a = null;
+let aInValue = Number(a);
+console.log(typeof aInValue); //number
+console.log(aInValue); // 0
+
+let b = undefined;
+let bInValue = Number(b);
+console.log(typeof bInValue); //number
+console.log(bInValue); // NaN
+
+let c = &quot;Hitesh&quot;;
+let cInValue = Number(c);
+console.log(typeof cInValue); //number
+console.log(cInValue); // NaN
+
+//true -&gt; 1 ; false -&gt; 0
+
+/* ------------Conversion to boolean ------ */
+let isLoggedIn = 1;
+let booleanLoggedIn = Boolean(isLoggedIn);
+console.log(booleanLoggedIn); // true
+console.log(typeof booleanLoggedIn); // boolean
+//1 =&gt; true; 0 =&gt; false ; 8 =&gt; true
+//&quot;&quot; =&gt; false ; &quot;Hitesh&quot; =&gt; true
+
+/* ------------Conversion to string ------ */
+let someNumber = 33;
+let stringNumber = String(someNumber);
+console.log(typeof stringNumber); //string
+console.log(stringNumber); //33</code></pre><h2 id="c54db9ec-c2a9-4210-bf68-912ac50d0169" class="">Lect-7: <strong><strong>Why string to number conversion is confusing</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="674395b4-67dd-46ff-b034-1f5fcb94716a" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">/*******************Operations************************** */
+let value = 3
+let negValue = -value
+console.log(negValue) //-3
+
+console.log(2+2); //4
+console.log(2-2); //0
+console.log(2*2); //4
+console.log(3/2); //1.5
+console.log(3%2); //1
+console.log(2**3); //8
+
+let str1 = &quot;Hello &quot;
+let str2 = &quot;Hitesh&quot;
+let str3 = str1 + str2
+console.log(str3); //Hello Hitesh
+
+console.log(&quot;1&quot; + 2); //12
+console.log(1 + &quot;2&quot;); //12
+console.log(&quot;1&quot; + 2 + 2); //122
+console.log(1 + 2 + &quot;2&quot;); //32
+
+console.log(true); //true
+console.log(+true); //1
+console.log(+&quot;&quot;); //0
+
+let num1, num2, num3
+num1 = num2 = num3 = 2 + 2 //not recommended way
+console.log(num1); //4
+console.log(num2); //4
+console.log(num3); //4
+
+//prefix and postfix in js
+let gameCounter = 100
+gameCounter++
+console.log(gameCounter); //101
+++gameCounter
+console.log(gameCounter);//102
+
+let x = 3;
+const y = x++;
+console.log(`x:${x}, y:${y}`);
+// Expected output: &quot;x:4, y:3&quot;
+
+let a1 = 3;
+const b1 = ++a;
+console.log(`a:${a1}, b:${b1}`);
+// Expected output: &quot;a:4, b:4&quot;
+
+
+//++(++x); 
+//(x++)++
+// SyntaxError: Invalid left-hand side expression in prefix operation
+
+let x2 = 3n;
+const y2 = x2++;
+// x2 is 4n; y2 is 3n
+
+/* In JavaScript, you can work with regular numbers (like 1, 2, 3) and also with BigInt numbers (like 1n, 2n, 3n). BigInt is a special type of number that allows you to work with very large integers beyond the normal JavaScript number limit.*/</code></pre><h2 id="7e33280f-3d72-4bdc-a0ed-82769ac87ccc" class="">Lect-8 : <strong><strong>Comparison of datatypes in javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f9f35a20-c37e-479c-8b94-96f37112bcb3" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">console.log(2 &gt; 1);//true
+console.log(2 &gt;= 1); //true
+console.log(2 &lt; 1);//false
+console.log(2 == 1); //false
+console.log(2 != 1); //true
+
+console.log(&quot;2&quot; &gt; 1); //true
+console.log(&quot;02&quot; &gt; 1); //true
+
+console.log(null &gt; 0); //false --&gt; conversion of null to a number
+console.log(null == 0); //false --&gt;here no conversion to a number
+console.log(null &gt;= 0); //true --&gt;--&gt; conversion of null to a number
+/*Reason: an equality check &#x27;==&#x27; and comparison &#x27;&gt;, &lt;, &gt;=, &lt;=&#x27; work differently.
+Comaparisons convert &#x27;null&#x27; to a number, treating it as 0. That&#x27;s why null&gt;=0 is true and null&gt;0 is false.
+*/ 
+
+console.log(undefined &gt; 0); //false
+console.log(undefined == 0); //false
+console.log(undefined &gt;= 0); //false
+
+//strict check: === 
+console.log(&quot;2&quot; === 2); //false
+
+/* Note: Avoid confusing comparisons. Write clean and clear code.*/</code></pre><h2 id="9f1acfc4-23d9-47bd-b4ad-a1c5f64c5e56" class="">Lect-9: <strong><strong>Data types of javascript summary</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="00301fe1-2ef3-4b6a-9cfa-37d810f7fbc6" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">/* Note : On the basis of how you can store the data and how you can access the data.
+Dataypes are of two types in js: 1)Primitive 2)Non primitive or Reference type */
+
+/*1)Primitive Types:
+ --call by value
+ --7 types: String, Number, Boolean, null, undefined, Symbol, BigInt
+ */
+
+let val = 123
+let floatVal = 123.5
+let outsideTemp = null
+let userEmail;
+
+const id = Symbol(&#x27;123&#x27;)
+const anotherId = Symbol(&#x27;123&#x27;)
+console.log(id === anotherId) //false
+
+const bigNumber = 23257376746889n
+
+/* 2) Reference (Non primitive):
+ --call by refrence
+ --Arrays, Objects, Functions
+ */
+
+const heros = [&quot;Shaktiman&quot;, &quot;Naagraj&quot;, &quot;Doga&quot;]
+
+let myObj = {
+    name: &quot;hitesh&quot;,
+    age: 22
+}
+
+const myFunc = function(){
+    console.log(&quot;Hello World&quot;);
+}
+
+ //JavaScript is a dynamically typed language, which means you don&#x27;t need to explicitly specify the data type of a variable when declaring it. 
+
+ //typeof =&gt; return data type
+ /*
+ Return type of variables in JavaScript
+1) Primitive Datatypes
+       Number =&gt; number
+       String  =&gt; string
+       Boolean  =&gt; boolean
+       null  =&gt; object
+       undefined  =&gt;  undefined
+       Symbol  =&gt;  symbol
+       BigInt  =&gt;  bigint
+
+2) Non-primitive Datatypes
+       Arrays  =&gt;  object
+       Function  =&gt;  function
+       Object  =&gt;  object
+ */</code></pre><h2 id="6c4a8cf7-8da5-495f-bd18-d49d6232012a" class="">Lect-10: <strong><strong>Stack and Heap memory in javascript</strong></strong></h2><ul id="3703c772-e21c-4d57-abe0-31bb8e99d6a0" class="bulleted-list"><li style="list-style-type:disc">Stack - Primitive data types ; Heap - Non Primitive</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="198ca32a-2aa6-4374-bd92-61ffa0f61677" class="code"><code class="language-undefined" style="white-space:pre-wrap;word-break:break-all">/*********Stack and Heap***** */
+//Stack: Primitive; Heap: Non primitive
+
+//Stack: Primitive - a copy is created
+let myYoutubeName = &quot;hiteshchoudhary&quot;
+let anotherName = myYoutubeName
+console.log(anotherName);
+
+anotherName = &quot;chaiaurcode&quot;
+console.log(myYoutubeName);
+console.log(anotherName);
+
+//Heap: Non primitive - reference is used, since refrence is used changes will reflect in original also. (When you take refrence back from heap , you dont get a copy, you get refrence of original value)
+let userOne = {
+    email : &quot;userone@gmail.com&quot;,
+    upi : &quot;user1@ybl&quot;
+}
+
+let userTwo = userOne
+
+userTwo.email = &quot;hitesh@google.com&quot;
+console.log(userOne.email);
+console.log(userTwo.email);
+//here we made change in userTwo but it will reflect in userOne as well.</code></pre><figure id="c4f36af3-8f13-4ce0-b36c-a32a7feeea47" class="image"><a href="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%201.png"><img style="width:672px" src="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%201.png"/></a></figure><h2 id="a8a5ea46-a6f4-41a8-890d-d0d93823e7b5" class="">Lect-11: <strong><strong>Strings in Javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="92100fd9-f22a-41ca-9202-f18e4a0b30a8" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const name = &quot;Hitesh &quot;
+const repoCount = 50
+
+console.log(name + repoCount + &quot; Value&quot;) //not recommended
+//use Backticks instead: (String interpolation)
+console.log(`Hello, my name is ${name}and my repo count is ${repoCount}`);</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ebb64e51-c6f6-4b61-a83f-e0a3c68ea1f0" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const gameName = new String(&quot;hiteshhc&quot;)
+console.log(gameName);</code></pre><figure id="8b7c83b2-a5eb-45e4-baae-6296de9064c1" class="image"><a href="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%202.png"><img style="width:288px" src="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%202.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="58d18b07-d89d-4e8a-8000-9d860c97a291" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const gameName = new String(&quot;hiteshhc&quot;)
+console.log(gameName);
+
+console.log(gameName[0]);
+console.log(gameName.__proto__); //we dont need to write __proto__ everytime, we can directly access all the methods as below
+console.log(gameName.length);//8
+console.log(gameName.toUpperCase());//HITESHHC
+console.log(gameName.charAt(1));//i
+console.log(gameName.indexOf(&#x27;t&#x27;));//2
+
+const newString = gameName.substring(0,4) //last index is not included ; here negetive value is ignored
+console.log(newString);
+
+const anotherString = gameName.slice(0,4) ////last index is not included ; here negetive value is also allowed
+console.log(anotherString);
+
+const newStringOne = &quot;     Hitesh      &quot;
+console.log(newStringOne);
+console.log(newStringOne.trim());
+
+const url = &quot;https://hitesh.com/hitesh%20choudhary&quot;
+console.log(url.replace(&#x27;%20&#x27; , &#x27;-&#x27;));
+
+console.log(url.includes(&#x27;hitesh&#x27;));
+
+console.log(gameName.split(&quot;&quot;));</code></pre><h2 id="d4f7cfe6-146e-4cd1-b7db-5ae24de7131c" class="">Lect-12: <strong><strong>Number and Maths in Javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a2425027-5ad2-491c-ab2a-c9d97b2e8ef7" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const score = 400
+console.log(score);//400
+
+//this gurantees it is a number
+const balance = new Number(100)
+console.log(balance); //[Number: 100]
+
+console.log(balance.toString().length); //3
+
+//toFixed() : number of digits after decimal
+console.log(balance.toFixed(2));//100.00
+
+//toPrecision(): total number of digits
+const otherNumber = 23.8966
+console.log(otherNumber.toPrecision(3)); //23.9
+console.log(otherNumber.toPrecision(2));//24
+console.log(1234.78945.toPrecision(3)); //1.23e+3
+
+const hundreds = 1000000
+console.log(hundreds.toLocaleString()); //1,000,000
+console.log(hundreds.toLocaleString(&#x27;en-IN&#x27;));//10,00,000
+
+//other number methods
+Number.MAX_VALUE
+Number.MIN_VALUE
+Number.MAX_SAFE_INTEGER
+
+/***************Maths************** */
+console.log(Math.abs(-4)); //4
+
+console.log(Math.round(4.6));//5
+console.log(Math.round(4.2));//4
+console.log(Math.ceil(4.2));//5
+console.log(Math.floor(4.9));//4
+
+console.log(Math.min(4, 3, 6, 8));//3
+console.log(Math.max(4, 3, 6, 8));//8
+
+//***NOTE==&gt; Math.random()
+console.log(Math.random());//any value b/w 0 and 1
+
+//if we want random value b/w 1 and 10
+const randVal = Math.floor(Math.random() * 10) + 1;
+console.log(randVal); 
+
+//if we want random value b/w min and max
+const min = 10
+const max = 20
+const randomValue = Math.floor(Math.random() * (max - min + 1)) + min;
+console.log(randomValue);</code></pre><h2 id="75129422-8584-44d0-933d-cb89290af078" class="">Lect-13: <strong><strong>Date and time in depth in javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d756fd3b-bcff-47ac-a7fb-1960443d1d69" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//Dates in js
+
+/*JavaScript Date objects represent a single moment in time in a platform-independent format. Date objects encapsulate an integral number that represents milliseconds since the midnight at the beginning of January 1, 1970, UTC (the epoch).*/
+
+let myDate = new Date()
+console.log(myDate); //2024-01-17T17:03:53.379Z
+console.log(myDate.toString()); //Wed Jan 17 2024 17:04:31 GMT+0000 (Coordinated Universal Time)
+console.log(myDate.toDateString()); //Wed Jan 17 2024
+console.log(myDate.toISOString()); //2024-01-17T17:06:33.508Z
+console.log(myDate.toJSON()); //2024-01-17T17:07:36.266Z
+console.log(myDate.toLocaleString());//1/17/2024, 5:08:18 PM
+console.log(myDate.toLocaleDateString());//1/17/2024
+
+let myCreatedDate1 = new Date(2023, 0, 23)
+console.log(myCreatedDate1.toLocaleString());//1/23/2023, 12:00:00 AM
+
+let myCreatedDate2 = new Date(2023, 0, 23, 5, 3)
+console.log(myCreatedDate2.toLocaleString());//1/23/2023, 5:03:00 AM
+
+let myCreatedDate3 = new Date(&quot;2023-01-14&quot;)
+console.log(myCreatedDate3.toLocaleString());//1/14/2023, 12:00:00 AM
+
+let myCreatedDate4 = new Date(&quot;01-14-2023&quot;)
+console.log(myCreatedDate4.toLocaleString());//1/14/2023, 12:00:00 AM
+
+
+let myTimeStamp = Date.now()
+console.log(myTimeStamp); //1705512093789 //this gives current time in millisecond
+
+console.log(myCreatedDate1.getTime());//1674432000000//time till that date in milliseconds
+
+console.log(Math.floor(Date.now()/1000));//1705512258 //current time in seconds
+
+let newDate = new Date()
+console.log(newDate.getDate()); //17//todays date
+console.log(newDate.getDay());//3//wed, so 3rd day
+console.log(newDate.getMonth());//0 // indexing starts from 0 so JAN is 0
+console.log(newDate.getFullYear());//2024
+
+console.log(newDate.toLocaleString(&#x27;default&#x27;, {
+    weekday: &quot;long&quot;,
+    //we can add other modifications as well here
+}))
+//Wednesday</code></pre><h2 id="f5f3d68f-be35-4f37-821c-ddc45865d86d" class="">Lect-14: <strong><strong>Array in Javascript</strong></strong></h2><ul id="fc4444fa-ab30-4050-b327-0dbac163b186" class="bulleted-list"><li style="list-style-type:disc">JavaScript arrays are resizable and can contain a mix of different data types.</li></ul><ul id="7abec3b6-09cf-4859-9c16-bb5a8b280430" class="bulleted-list"><li style="list-style-type:disc">JavaScript array-copy operations create shallow copies.</li></ul><ul id="c592e7ea-9e0d-4e6d-a229-d84ca71003b6" class="bulleted-list"><li style="list-style-type:disc">A <strong>shallow copy</strong> of an object is a copy whose properties share the <span style="border-bottom:0.05em solid">same references</span> as those of the source object from which the copy was made. As a result, when you change either the source or the copy, you may also cause the other object to change too.</li></ul><ul id="346c22ad-ddc7-407a-b3e4-821a5a9a41d5" class="bulleted-list"><li style="list-style-type:disc">A <strong>deep copy</strong> of an object is a copy whose properties do not share the same references as those of the source object from which the copy was made. As a result, when you change either the source or the copy, you can be assured you&#x27;re not causing the other object to change too.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fc484fdc-8cde-4eef-92d1-df61643fd72a" class="code"><code class="language-undefined" style="white-space:pre-wrap;word-break:break-all">let myArray = [1,2,3,true, &quot;Hitesh&quot;]
+
+let myHeros = [&quot;IronMan&quot;, &quot;Capt. America&quot;, &quot;Thor&quot;]
+
+let myArr = new Array(1,2,3,4,5,6) //another way of defining array in js
+
+console.log(myHeros[2]);//accessing array elements in js //O/P-Thor
+
+let arr = [1, 2, 3, 4, 5]
+//push()-push element at the end of the array
+arr.push(6)
+arr.push(7,8)
+console.log(arr);
+
+//pop()-delete element from end of array
+arr.pop()
+console.log(arr);
+
+//unshift()-adds element at the start of array
+arr.unshift(0)
+arr.unshift(10,9)
+console.log(arr);
+
+//shift()-delete element from start of the array
+arr.shift()
+console.log(arr);
+
+//includes()-true or false based on element exsits in arr or not
+console.log(arr.includes(0));
+
+//indexOf(): returns index of element, if not present then -1
+console.log(arr.indexOf(7));
+console.log(arr.indexOf(12));
+
+//join() : converts array into string
+let newStr = arr.join()
+console.log(arr);
+console.log(newStr);
+console.log(typeof newStr);//string
+
+//slice(): returns a new array containing the extracted elements.The original array will not be modified.
+const animals = [&#x27;ant&#x27;, &#x27;bison&#x27;, &#x27;camel&#x27;, &#x27;duck&#x27;, &#x27;elephant&#x27;];
+const newAnimals = animals.slice(2,4)
+console.log(newAnimals);//[ &#x27;camel&#x27;, &#x27;duck&#x27; ]
+console.log(animals);//[ &#x27;ant&#x27;, &#x27;bison&#x27;, &#x27;camel&#x27;, &#x27;duck&#x27;, &#x27;elephant&#x27; ] //original array is not modified
+
+//splice(): changes the contents of an array by removing or replacing existing elements and/or adding new elements in place. Here original array is changed.
+const myFish = [&quot;angel&quot;, &quot;clown&quot;, &quot;drum&quot;, &quot;sturgeon&quot;];
+const removed = myFish.splice(2, 1, &quot;trumpet&quot;);//remove 1 element at index 2, and insert &quot;trumpet&quot;
+console.log(removed); //[ &#x27;drum&#x27; ]
+console.log(myFish);//[ &#x27;angel&#x27;, &#x27;clown&#x27;, &#x27;trumpet&#x27;, &#x27;sturgeon&#x27; ] //original array is also modified</code></pre><h2 id="56c4501a-b100-4549-9a61-ebdf29deea50" class="">Lect-15: Array part 2 in Javascript</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="cda9861b-feaa-4c32-81c2-1a86bc0d8f6d" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const marvelHeros = [&quot;thor&quot;, &quot;ironman&quot;, &quot;spiderman&quot;]
+const dcHeros = [&quot;superman&quot;, &quot;flash&quot;, &quot;batman&quot;]
+
+marvelHeros.push(dcHeros) //push into the exsiting array
+console.log(marvelHeros); //[ &#x27;thor&#x27;, &#x27;ironman&#x27;, &#x27;spiderman&#x27;, [ &#x27;superman&#x27;, &#x27;flash&#x27;, &#x27;batman&#x27; ] ]
+console.log(marvelHeros[3][1]);//flash
+
+//concat(): concates two or more arrays and returns a new array
+const marvelHeros1 = [&quot;thor&quot;, &quot;ironman&quot;, &quot;spiderman&quot;]
+const dcHeros1 = [&quot;superman&quot;, &quot;flash&quot;, &quot;batman&quot;]
+const allHeros = marvelHeros1.concat(dcHeros1)
+console.log(allHeros);//[ &#x27;thor&#x27;, &#x27;ironman&#x27;, &#x27;spiderman&#x27;, &#x27;superman&#x27;, &#x27;flash&#x27;, &#x27;batman&#x27; ]
+
+//**spread operator**
+const newAllHeros = [...marvelHeros1, ...dcHeros1]
+console.log(newAllHeros); //[ &#x27;thor&#x27;, &#x27;ironman&#x27;, &#x27;spiderman&#x27;, &#x27;superman&#x27;, &#x27;flash&#x27;, &#x27;batman&#x27; ]
+
+//flattening an array: flat() method
+const anotherArray = [1, 2, 3, [4, 5, 6], 7, [6, 7, [4, 5]], 10]
+const flatendArray = anotherArray.flat(Infinity) //flat(depth-upto-which-u-want-to-flaten-array)
+console.log(flatendArray);// [1,  2, 3, 4, 5, 6,  7, 6, 7, 4, 5, 10]
+
+//Array.isArray(): returns true or false based on passed argument
+console.log(Array.isArray([1,2,3]));//true
+console.log(Array.isArray(&quot;Hitesh&quot;)); //false
+
+//Array.from() : creates a new array
+console.log(Array.from(&quot;Hitesh&quot;));//[ &#x27;H&#x27;, &#x27;i&#x27;, &#x27;t&#x27;, &#x27;e&#x27;, &#x27;s&#x27;, &#x27;h&#x27; ]
+console.log(Array.from({name: &quot;Hitesh&quot; , age: 24}));//[] //interesting case (here we have to specify we want array based on keys or values, otherwise it will return empty array.)
+
+//Array.of()
+let score1 = 100, score2 = 200, score3 = 300
+console.log(Array.of(score1, score2, score3)); //[ 100, 200, 300 ]</code></pre><h2 id="143d8103-7d56-4fb8-9873-f85ff591c760" class="">Lect-16: <strong><strong>Objects in javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f6270a81-de53-463c-a2d1-5212db52beb2" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//singleton
+//Object.create()
+
+//object literals
+const obj = {}
+
+const mySym = Symbol(&quot;key1&quot;)//making string &quot;key1&quot; a symbol
+
+const jsUser = {
+    name: &quot;Hitesh&quot;,
+    &quot;full name&quot;: &quot;Hitesh Chodhary&quot;,
+    [mySym]: &quot;mykey1&quot;, //using symbol as key
+    age: 18,
+    location: &quot;Jaipur&quot;,
+    email: &quot;hitesh@google.com&quot;,
+    isLoggedIn: false,
+    lastLoginDays: [&quot;Mon&quot;, &quot;Tus&quot;]
+}
+
+console.log(jsUser); //prints whole jsUser object
+console.log(jsUser.email);//accessing value of &quot;email&quot; key
+console.log(jsUser[&quot;email&quot;]); //better way of accessing values
+console.log(jsUser[&quot;full name&quot;]);//here we cant use . to access &quot;full name&quot; --&gt;(a)
+console.log(jsUser[mySym]);//to access symbol key--&gt;(b)
+
+/* (a) and (b) are the advantages of [] over .
+*/
+
+//modifying object values
+jsUser.email = &quot;hitesh@chatgpt.com&quot;
+console.log(jsUser.email);//hitesh@chatgpt.com
+
+//Object.freeze(): used to freeze object, after this any changes made to object will not reflect in the object
+//Object.freeze(jsUser)
+jsUser[&quot;email&quot;] = &quot;hitesh@mssoft.com&quot;
+console.log(jsUser.email);//hitesh@chatgpt.com //email was not changed bcoz we freezed the object
+
+//in js functions are treated as type-1 or first class citizen, because we can use function as we use normal variable
+jsUser.greetingOne = function(){
+    console.log(&quot;Hello JS user&quot;);
+}
+jsUser.greetingTwo = function(){
+    console.log(`Hello JS user, ${this.name}`);//this keyword is used to access keys within that object
+}
+
+console.log(jsUser.greetingOne()); //Hello JS user
+console.log(jsUser.greetingTwo()); //Hello JS user, Hitesh
+
+console.log(jsUser.greetingTwo); //[Function (anonymous)] //here we are not invoking function islye it is returning whole function itself</code></pre><h2 id="51874746-c7ad-4676-84da-bdf3c3dc8a36" class="">Lect-17: <strong><strong>Objects in Javascript part 2</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="316ab205-d3a5-4c5c-b1c6-7b8c0022a766" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const objOne = new Object()//singleton onject
+const objTwo = {} //non singleton object
+//this is the only difference b/w two , banki kahani same hai
+
+const tinderUser = {}
+tinderUser.id = &quot;123abc&quot;
+tinderUser.name = &quot;Sama&quot;
+tinderUser.isLoggedIn = false
+console.log(tinderUser);
+
+const regualrUser = {
+    email: &quot;some@gmail.com&quot;,
+    fullname: {
+        userfullname: {
+            firstname: &quot;hitesh&quot;,
+            lastname: &quot;chowdhary&quot;
+        }
+    }
+}
+console.log(regualrUser.fullname.userfullname.firstname);//hitesh
+
+const obj1 = {1: &quot;a&quot;, 2: &quot;b&quot;}
+const obj2 = {3: &quot;a&quot;, 4: &quot;b&quot;}
+const obj3 = {5: &quot;a&quot;, 6: &quot;b&quot;}
+
+//const obj4 = {obj1 , obj2};
+//console.log(obj4);//{ obj1: { &#x27;1&#x27;: &#x27;a&#x27;, &#x27;2&#x27;: &#x27;b&#x27; }, obj2: { &#x27;3&#x27;: &#x27;a&#x27;, &#x27;4&#x27;: &#x27;b&#x27; } } //we get obj1 and obj2 inside other obj
+
+const obj4 = Object.assign(obj1 , obj2);
+console.log(obj4);//{ &#x27;1&#x27;: &#x27;a&#x27;, &#x27;2&#x27;: &#x27;b&#x27;, &#x27;3&#x27;: &#x27;a&#x27;, &#x27;4&#x27;: &#x27;b&#x27; }
+console.log(obj1);//{ &#x27;1&#x27;: &#x27;a&#x27;, &#x27;2&#x27;: &#x27;b&#x27;, &#x27;3&#x27;: &#x27;a&#x27;, &#x27;4&#x27;: &#x27;b&#x27; } //problem with this is that it changes obj1 also
+
+//if you dont want to modify any excisting object use {} with assign
+const obj5 = Object.assign({}, obj1, obj2, obj3) //here we get all objects into {} object
+console.log(obj5);
+
+//**better way: use spread operator**
+const newObj = {...obj1, ...obj2, ...obj3}
+console.log(newObj);
+
+console.log(Object.keys(tinderUser));
+//[ &#x27;id&#x27;, &#x27;name&#x27;, &#x27;isLoggedIn&#x27; ] --returns all keys as an array
+console.log(Object.values(tinderUser));
+//[ &#x27;123abc&#x27;, &#x27;Sama&#x27;, false ]--returns all values of object as an array
+console.log(Object.entries(tinderUser));
+//[ [ &#x27;id&#x27;, &#x27;123abc&#x27; ], [ &#x27;name&#x27;, &#x27;Sama&#x27; ], [ &#x27;isLoggedIn&#x27;, false ] ]--returns [key,value] pair as an array of array
+
+console.log(tinderUser.hasOwnProperty(&quot;isLoggedIn&quot;));//true</code></pre><h2 id="f4db37c0-26af-42bb-b0d7-d5d6bba47b93" class="">Lect-18: <strong><strong>Object de-structure and JSON API intro</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="57e21f59-f301-4705-abe1-d8a6417677f2" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const objOne = new Object()//singleton onject
+const objTwo = {} //non singleton object
+//this is the only difference b/w two , banki kahani same hai
+
+const tinderUser = {}
+tinderUser.id = &quot;123abc&quot;
+tinderUser.name = &quot;Sama&quot;
+tinderUser.isLoggedIn = false
+console.log(tinderUser);
+
+const regualrUser = {
+    email: &quot;some@gmail.com&quot;,
+    fullname: {
+        userfullname: {
+            firstname: &quot;hitesh&quot;,
+            lastname: &quot;chowdhary&quot;
+        }
+    }
+}
+console.log(regualrUser.fullname.userfullname.firstname);//hitesh
+
+const obj1 = {1: &quot;a&quot;, 2: &quot;b&quot;}
+const obj2 = {3: &quot;a&quot;, 4: &quot;b&quot;}
+const obj3 = {5: &quot;a&quot;, 6: &quot;b&quot;}
+
+//const obj4 = {obj1 , obj2};
+//console.log(obj4);//{ obj1: { &#x27;1&#x27;: &#x27;a&#x27;, &#x27;2&#x27;: &#x27;b&#x27; }, obj2: { &#x27;3&#x27;: &#x27;a&#x27;, &#x27;4&#x27;: &#x27;b&#x27; } } //we get obj1 and obj2 inside other obj
+
+const obj4 = Object.assign(obj1 , obj2);
+console.log(obj4);//{ &#x27;1&#x27;: &#x27;a&#x27;, &#x27;2&#x27;: &#x27;b&#x27;, &#x27;3&#x27;: &#x27;a&#x27;, &#x27;4&#x27;: &#x27;b&#x27; }
+console.log(obj1);//{ &#x27;1&#x27;: &#x27;a&#x27;, &#x27;2&#x27;: &#x27;b&#x27;, &#x27;3&#x27;: &#x27;a&#x27;, &#x27;4&#x27;: &#x27;b&#x27; } //problem with this is that it changes obj1 also
+
+//if you dont want to modify any excisting object use {} with assign
+const obj5 = Object.assign({}, obj1, obj2, obj3) //here we get all objects into {} object
+console.log(obj5);
+
+//**better way: use spread operator**
+const newObj = {...obj1, ...obj2, ...obj3}
+console.log(newObj);
+
+console.log(Object.keys(tinderUser));
+//[ &#x27;id&#x27;, &#x27;name&#x27;, &#x27;isLoggedIn&#x27; ] --returns all keys as an array
+console.log(Object.values(tinderUser));
+//[ &#x27;123abc&#x27;, &#x27;Sama&#x27;, false ]--returns all values of object as an array
+console.log(Object.entries(tinderUser));
+//[ [ &#x27;id&#x27;, &#x27;123abc&#x27; ], [ &#x27;name&#x27;, &#x27;Sama&#x27; ], [ &#x27;isLoggedIn&#x27;, false ] ]--returns [key,value] pair as an array of array
+
+console.log(tinderUser.hasOwnProperty(&quot;isLoggedIn&quot;));//true
+
+
+/*Object de-structure and JSON API intro*/
+
+/*
+Destructuring is a JavaScript expression that allows us to extract data from arrays, objects, and maps and set them into new, distinct variables.
+*/
+
+
+const course = {
+    coursename: &quot;JS in Hindi&quot;,
+    price: &quot;999&quot;,
+    courseInstructor: &quot;hitesh&quot;
+}
+//Object Destructuring in js
+const {courseInstructor} = course
+console.log(courseInstructor);//hitesh
+const {courseInstructor: instrcutor} = course
+console.log(instrcutor);//hitesh
+
+/*
+//API: API is apne kaam ko dusre ke sar pe dalna;task delegate kr dena
+
+
+//JSON
+{
+    &quot;name&quot;: &quot;hitesh&quot;,
+    &quot;email&quot;: &quot;some@gmail.com&quot;,
+    &quot;age&quot;: 18,
+    &quot;isLoggedIn&quot;: false
+}
+
+//other format of json data
+[
+    {},
+    {},
+    {}
+]
+
+//there are other formats of json as well
+
+//use &quot;JSON Formatter&quot; to understand json data
+*/</code></pre><h2 id="b8c8e037-7ec8-4632-9ca9-d0fd71fdf347" class="">Lect-19: <strong><strong>Functions and parameters in javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c8e458e0-9735-491f-b4a8-aa724f661012" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//Function: a sequence of program instructions that performs a specific task, packaged as a unit. This unit can then be used in programs wherever that particular task should be performed
+
+function sayMyName(){
+    console.log(&quot;P&quot;);
+    console.log(&quot;K&quot;);
+}
+sayMyName //refrence
+sayMyName() //execution
+
+//parameter: variables that we pass inside a function declaration
+//argumnets: values/variables that we pass during function call
+
+function addTwoNumbers(number1, number2){
+    console.log(number1 + number2);
+}
+addTwoNumbers(3, 4) //7
+addTwoNumbers(3, &quot;4&quot;) //34 (so we should check if values passed is Number or not)
+
+function addTwo(number1, number2){
+    let res = number1 + number2
+    return res;
+}
+const result = addTwo(5, 5)
+console.log(result)
+
+function loginUserMessage(username){
+    if(username === undefined){
+        console.log(&quot;Please enter a valid username!&quot;);
+        return;
+    }
+    return `${username} just logged in.`
+}
+console.log(loginUserMessage(&quot;Hitesh&quot;));//Hitesh just logged in.
+console.log(loginUserMessage());//Please enter a valid username!</code></pre><h2 id="c88147ad-0b42-447f-8906-c64d1c2bb0ab" class="">Lect-20: Functions with objects and array in javascript</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f1c9a070-09a2-4a2c-9fd6-53f76b6e551c" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//rest operator &#x27;...&#x27; =&gt; this bundles all the numbers in an array and returns an array
+function calculateCartPrice(...num1){
+    return num1;
+}
+
+console.log(calculateCartPrice(200, 500, 400, 2000)); //[ 200, 500, 400, 2000 ]
+
+function calculateCartPrice1(val1, val2, ...num1){
+    return num1;
+}
+
+console.log(calculateCartPrice1(200, 500, 400, 2000));//[ 400, 2000 ] =&gt; here first two values go to val1 &amp; val2 and rest to num1
+
+//object 
+const user = {
+    username: &quot;Sam&quot;,
+    price: 199
+}
+
+function handleObject(anyObject){
+    console.log(`Username is ${anyObject.username} and price is ${anyObject.price}`);
+}
+
+handleObject(user) //Username is Sam and price is 199
+
+handleObject({
+    username: &quot;Hitesh&quot;,
+    price: 399
+}) //Username is Hitesh and price is 399
+
+//arrays
+const myNewArray = [200, 400, 100, 500]
+
+function returnSecondValue(arr){
+    return arr[1]
+}
+
+console.log(returnSecondValue(myNewArray)); //400</code></pre><h2 id="0bbacb01-b32f-40cf-91fa-9d04470e65e2" class="">Lect-21: <strong><strong>Global and local scope in javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="302a7dd8-224c-4fb5-8463-17e1451b21df" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//global scope
+let a = 100
+const b = 200
+var c = 300  //var has global scope no matter it is defined inside block or globally
+d = 400 //global scope
+
+//block scope : let &amp; const have block scope
+if(true){
+    let a = 1
+    const b = 2
+    var c = 3
+    d = 4
+    console.log(&quot;Inner:&quot;, a); //1
+    console.log(&quot;Inner:&quot;, b); //2
+    console.log(&quot;Inner:&quot;, c); //3
+    console.log(&quot;Inner:&quot;, d); //4
+}
+
+console.log(&quot;Outer:&quot;, a); //100
+console.log(&quot;Outer:&quot;, b); //200
+console.log(&quot;Outer:&quot;, c); //3
+console.log(&quot;Outer:&quot;, d); //4</code></pre><h2 id="469c8fd8-e443-4490-af27-0beeecd75922" class="">Lect-22: <strong><strong>Scope level and mini hoisting in javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d9bf96f8-e8f2-445c-b19b-b020f35da8ea" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//nested scope
+function one(){
+    const username = &quot;hitesh&quot;
+
+    function two(){
+        const website = &quot;youtube&quot;
+        console.log(username);
+    }
+
+    //console.log(website); //error =&gt;website out of scope
+
+    two()
+}
+
+one()
+
+
+if(true){
+    const username = &quot;hitesh&quot;
+    if(username === &quot;hitesh&quot;){
+        const website = &quot; youtube&quot;
+        console.log(username + website);
+    }
+    //console.log(website); // error =&gt;website out of scope
+}
+//console.log(username); //error=&gt; username out of scope
+
+/* ++++++++++Interesting+++++++++ */
+
+console.log(addOne(5));//6 =&gt; correct =&gt; function declarations can be hoisted
+
+//function declaration
+function addOne(num){
+    return num + 1;
+}
+
+//console.log(addTwo(5));//error=&gt;function expressions cant be hoisted
+
+//function expression
+const addTwo = function(num){
+    return num + 2;
+}
+
+console.log(addOne(5)); //6
+console.log(addTwo(5)); //7</code></pre><h2 id="4eaddca9-b41d-4608-81f6-b3dc98819762" class="">Lect-23: <strong><strong>THIS and arrow function in javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="cb9ea126-2718-4247-bf5f-bdb4029f6068" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//this: this is used to refer to current context (object)
+
+const user = {
+    username: &quot;hitesh&quot;,
+    price: 999,
+
+    welcomeMessage: function(){
+        console.log(`${this.username}, Welcome to website.`);
+
+        console.log(this); //here this will give current object ie. &#x27;user&#x27; object
+    }
+}
+
+user.welcomeMessage() //hitesh, Welcome to website.
+
+user.username = &quot;sam&quot;
+user.welcomeMessage()//sam, Welcome to website.
+
+console.log(this); //here &#x27;this&#x27; will give an empty object {}
+//Note: In browser console , here &#x27;this&#x27; will return &#x27;window&#x27; object
+
+
+function chai1(){
+    let username = &quot;hitesh&quot;
+    console.log(this.username) //undefined
+}
+chai1()
+
+const chai2 = function(){
+    let username = &quot;hitesh&quot;
+    console.log(this.username) //undefined
+}
+chai2()
+
+
+/*************Arrow function************ */
+const chaiArrow = () =&gt; {
+    let username = &quot;hitesh&quot;
+    console.log(this);//{}
+}
+chaiArrow()
+
+//Explicit return: (when using return keyword)
+const addTwo = (num1, num2) =&gt; {
+    return num1 + num2;
+}
+console.log(addTwo(3, 4));//7
+
+//implicit return 
+//Method-1
+const addTwo = (num1, num2) =&gt; num1 + num2
+
+//Method-2
+const addTwo = (num1, num2) =&gt; (num1 + num2) 
+/*Note: When we use () bracket there is no need to use &#x27;return&#x27;. But when we use {} bracket we have to use &#x27;return&#x27; */
+
+const add = (num1, num2) =&gt; ({username: &quot;hitesh&quot;})
+console.log(add(3,4));//{username: &quot;hitesh&quot;}</code></pre><p id="356597d6-6212-4b67-acad-1a2a42968670" class="">
+</p><h2 id="dd6aa494-fe42-4ff5-ac73-7689cb18e669" class="">Lect-24: <strong><strong>Immediately Invoked Function Expressions IIFE</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="adfc26e5-61d7-456d-918d-d97531420a4a" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//An IIFE (Immediately Invoked Function Expression) is a JavaScript function that runs as soon as it is defined.
+
+/*Avoid polluting the global namespace: Because our application could include many functions and global variables from different source files, it&#x27;s important to limit the number of global variables. If we have some initiation code that we don&#x27;t need to use again, we could use the IIFE pattern.*/
+
+//many times we have problem with global scope pollution, so to avoid that we use IIFE. 
+
+//**at the end of the IIFE a semicolon is necessary**
+
+//named IIFE
+(function chai(){
+    console.log(`DB CONNECTED`);
+})(); //DB CONNECTED
+
+//unnamed IIFE / arrow function
+(() =&gt; {
+    console.log(`DB TWO CONNECTED`);
+})(); //DB TWO CONNECTED
+
+//IIFE with arguments and parameter
+((name) =&gt; {
+    console.log(`DB CONNECTED TO ${name}`);
+})(&quot;hitesh&quot;); //DB CONNECTED TO hitesh
+
+//two IIFE together: write first IIFE then use ; and then write second IIFE below it.
+(() =&gt; {
+    console.log(&quot;IIFE1&quot;);
+})();
+(() =&gt; {
+    console.log(&quot;IIFE2&quot;);
+})();</code></pre><h2 id="7d06e3b3-585a-4547-ab0e-87e1d039ff9b" class="">Lect-25: <strong><strong>How does javascript execute code + call stack</strong></strong></h2><figure id="e135a01a-1aab-4d82-9eeb-040fe76df8c0" class="image"><a href="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%203.png"><img style="width:522px" src="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%203.png"/></a></figure><figure id="9bb41195-e093-40a7-b7e9-0aac5cc5b96d" class="image"><a href="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%204.png"><img style="width:912px" src="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%204.png"/></a></figure><figure id="38a8c3b3-cc1d-4318-b635-49cfc958ebe7" class="image"><a href="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%205.png"><img style="width:446px" src="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%205.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8184a46f-e93e-47ed-a93c-27923f4b5959" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//javascript is single threaded
+
+/*
+1. JS creates a Global execution context 
+2. Next it creates the memory phase
+3. Memory phase - In this phase, the variables are set to undefined.
+  until the execution phase(next phase) and the functions are set to their definitions.
+4. Next it creates the execution phase
+5. Execution phase - In this phase, the variables are initialised to given values and 
+  when the functions are called, it creates a memory phase and execution phase for the function 
+  just like the main one.
+*/</code></pre><h2 id="bde96d95-74ae-4a79-bc02-0cc8db949fba" class="">Lect: 26: <strong><strong>Control flow in javascript in 1 shot</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="927d2a8d-3abf-4bdf-9606-7248053a81e7" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">/*
+//if statement
+if(condition){
+    //statements
+}
+
+// &lt;, &gt;, &lt;=, &gt;=, ==, ===, !=, !==
+
+//if-else
+if(condition){
+    //if condition is true run this block
+}
+else{
+    //if false runs this block
+}
+*/
+
+const score = 200
+
+if(score &gt; 100){
+    const power = &quot;Fly&quot;
+    console.log(`User power: ${power}`);
+}
+else{
+    console.log(`Score less than 100, so can&#x27;t fly.`);
+}
+
+const balance = 1000
+
+//if(balance &gt; 500)   console.log(&quot;test1&quot;), console.log(&quot;test2&quot;); //correct but bad code
+
+//if else-if
+if(balance &lt; 500){
+    console.log(&quot;Less than 500&quot;)
+}
+else if(balance &lt; 1000){
+    console.log(&quot;Less than 1000&quot;);
+}
+else{
+    console.log(&quot;Balance greater than or equal to 1000&quot;);
+}
+
+const userLoggedIn = true
+const debitCard = true
+const loggedInFromGoogle = false
+const loggedInFromEmail = true
+
+if(userLoggedIn &amp;&amp; debitCard){
+    console.log(&quot;Sllow to buy course&quot;)
+}
+
+if(loggedInFromGoogle || loggedInFromEmail){
+    console.log(&quot;User Logged In&quot;);
+}</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2007b971-6b1d-43e9-baf0-888ac39efe76" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">/*
+//switch case
+switch(key) {
+    case value:
+        //statement
+        break;
+    default:
+        //statement
+        break;
+}
+*/
+
+const month = 11
+
+switch (month) {
+    case 1:
+        console.log(&quot;January&quot;);
+        break;
+    case 12:
+        console.log(&quot;February&quot;);
+        break;
+    case 3:
+        console.log(&quot;March&quot;);
+        break;
+    case 4:
+        console.log(&quot;April&quot;);
+        break;
+    case 5:
+        console.log(&quot;May&quot;);
+        break;
+    case 6:
+        console.log(&quot;June&quot;);
+        break;
+    case 7:
+        console.log(&quot;July&quot;);
+        break;
+    case 8:
+        console.log(&quot;August&quot;);
+        break;
+    case 9:
+        console.log(&quot;September&quot;);
+        break;
+    case 10:
+        console.log(&quot;October&quot;);
+        break;
+    case 11:
+        console.log(&quot;November&quot;);
+        break;
+    case 12:
+        console.log(&quot;December&quot;);
+        break;
+
+    default:
+        console.log(&quot;Enter correct number&quot;);
+        break;
+}
+
+//Note: if there is no break statement, below codes are also executed until it encounters break.
+
+const day = &quot;Mon&quot;
+
+switch (day) {
+    case &quot;Mon&quot;:
+        console.log(&quot;Monday&quot;);
+        break;
+    case &quot;Tus&quot;:
+        console.log(&quot;Tuesday&quot;);
+        break;
+    case &quot;Wed&quot;:
+        console.log(&quot;Wednesday&quot;);
+        break;
+    default:
+        console.log(&quot;Other days&quot;);
+        break;
+}</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0649eb7f-5f80-404d-82fb-b57521156bbb" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const userEmail = &quot;hitesh@gpt.ai&quot;
+
+if(userEmail){
+    console.log(&quot;Got email ID&quot;);
+}
+else{
+    console.log(&quot;Don&#x27;t have user email.&quot;);
+}
+
+//&quot;hitesh&quot; =&gt;true
+//&quot;&quot; =&gt; false
+//[] =&gt; true
+
+//falsy values =&gt; false, 0, -0, BigInt 0n, &quot;&quot;, null, undefined, NaN
+
+//truthy values =&gt; &quot;0&quot;, &#x27;false&#x27;, &quot; &quot;, [], {}, function(){}
+
+const arr = []
+if(arr.length === 0){
+    console.log(&quot;Array is empty&quot;);
+}
+
+const emptyObj = {}
+if(Object.keys(emptyObj).length === 0){
+    console.log(&quot;Object is empty.&quot;);
+}
+
+/*
+false == 0 //true
+false == &#x27;&#x27; //true
+0 == &#x27;&#x27; //true
+*/
+
+
+//Nullish Coalescing Operator (??) : null, undefined
+
+let val1;
+val1 = 5 ?? 10
+console.log(val1); //5
+
+val1 = null ?? 10
+console.log(val1); //10
+
+val1 = undefined ?? 15
+console.log(val1); //15
+
+val1 = null ?? 10 ?? 20
+console.log(val1); //10
+
+
+//Terniary operator
+//condition ? true : false
+
+const iceTeaPrice = 100
+iceTeaPrice &lt;= 80 ? console.log(&quot;less tah 80&quot;) : console.log(&quot;more than 80&quot;) 
+//more than 80</code></pre><h2 id="f0752751-14ff-4393-9efe-f4d1f9ee915c" class="">Lect-27: <strong><strong>For loop with break and continue in javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c738b87b-0fdf-44f5-953d-74fb77f4ec4f" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//for loop
+for(let i = 0; i &lt; 10; i++){
+    console.log(i);
+}
+
+//first intialization is done; then condition is checked and THEN stataments inside block is executed and then increment happens--&gt; then again condition is check --&gt; block is executed-&gt; then increment happens and it continues till condition is true
+
+
+let myArray = [&quot;flash&quot;, &quot;batman&quot;, &quot;superman&quot;]
+for (let index = 0; index &lt; myArray.length; index++) {
+    const element = myArray[index];
+    console.log(element);  
+}
+
+
+//break and continue
+for (let index = 1; index &lt; 20; index++) {
+    if(index === 5){
+        console.log(&quot;Detected 5&quot;);
+        break;
+    }
+    console.log(`Value of i is ${index}`);
+}
+
+//continue
+for (let index = 1; index &lt; 20; index++) {
+    if(index === 5){
+        console.log(&quot;Detected 5&quot;);
+        continue
+    }
+    console.log(`Value of i is ${index}`);
+}</code></pre><h2 id="489c03cf-be4b-4caa-a12d-8868e7351bee" class="">Lect-28: <strong><strong>While and do while loop in Javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="164ac3f2-f555-45ba-821b-5b278d00d0a8" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//while loop
+let i = 0;
+while(i &lt;= 10){
+    console.log(`Value of index i is ${i}`);
+    i += 2
+}
+
+//do-while loop
+let score =1
+do {
+    console.log(score);
+    score++
+} while (score &lt;= 10);</code></pre><h2 id="f2fe261b-9d96-4781-acb3-8e3e7ecbe0b6" class="">Lect-29: <strong><strong>High Order Array loops</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0af06bd4-4856-4cb8-9ab1-cc5de4f8b0f7" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//**********for-of loop************
+
+const arr = [1, 2, 3, 4, 5]
+
+for(const num of arr){
+    console.log(num);
+}
+
+const greetings = &quot;Hello World!&quot;
+
+for(greet of greetings){
+    if(greet === &quot; &quot;)
+        continue
+    console.log(`Each char is: ${greet}`);
+}
+
+
+/*Maps: *key, value pair
+        *uniques keys
+        *maintains order in which these key value pairs are inserted
+*/
+const map = new Map()
+map.set(&#x27;IN&#x27;, &quot;India&quot;)
+map.set(&#x27;USA&#x27;, &quot;United States of America&quot;)
+map.set(&#x27;Fr&#x27;, &quot;France&quot;)
+
+console.log(map);
+
+//for of loop on map
+for (const [key, value] of map) {
+    console.log(key, &#x27;:-&#x27;, value);
+}
+
+//for of loop on object: for of is not used with object
+const obj = {
+    game1: &quot;NFS&quot;,
+    game2: &quot;Spiderman&quot;
+}</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c2cb1cef-4c45-44c6-a7ef-33077fb904ef" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">/************For-in loop**************/
+//for object iteration we use &#x27;for in loop&#x27;
+const myObj = {
+    js: &quot;javascript&quot;,
+    cpp: &quot;C++&quot;,
+    rb: &quot;ruby&quot;,
+    swift: &quot;swift by apple&quot;
+}
+
+for(const key in myObj){
+    console.log(`${key} : ${myObj[key]}`);
+}
+
+//for-in for array
+const arr = [&quot;js&quot;, &quot;cpp&quot;, &quot;swift&quot;, &quot;java&quot;, &quot;python&quot;]
+
+for(const key in arr){
+    console.log(key);//this will give index of array elements and not the element
+    //to get array elements
+    console.log(arr[key]);
+}
+//so avoid using for-in with arrays
+
+//Note: for-in is not used with maps</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c235012a-aaf4-4bd0-8583-9d419e596fcd" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//***********forEach loop*************
+
+const coding = [&quot;js&quot;, &quot;ruby&quot;,
+&quot;java&quot;, &quot;cpp&quot;, &quot;python&quot;]
+
+//Way-1
+coding.forEach( function(val){
+    console.log(val);
+} )
+
+//Way-2
+coding.forEach( (item) =&gt; {
+    console.log(item)
+} )
+
+//Way-3
+function printMe(item){
+    console.log(item);
+}
+
+coding.forEach(printMe) //Note:here we only pass function reference
+
+/*
+Output of all 3:
+js
+ruby
+java
+cpp
+python
+*/
+
+//forEach have access to index and whole array, apart from array items
+
+coding.forEach( (item, index, arr) =&gt; {
+    console.log(item, index, arr);
+})
+/*
+Output:
+js 0 [ &#x27;js&#x27;, &#x27;ruby&#x27;, &#x27;java&#x27;, &#x27;cpp&#x27;, &#x27;python&#x27; ]
+ruby 1 [ &#x27;js&#x27;, &#x27;ruby&#x27;, &#x27;java&#x27;, &#x27;cpp&#x27;, &#x27;python&#x27; ]
+java 2 [ &#x27;js&#x27;, &#x27;ruby&#x27;, &#x27;java&#x27;, &#x27;cpp&#x27;, &#x27;python&#x27; ]
+cpp 3 [ &#x27;js&#x27;, &#x27;ruby&#x27;, &#x27;java&#x27;, &#x27;cpp&#x27;, &#x27;python&#x27; ]
+python 4 [ &#x27;js&#x27;, &#x27;ruby&#x27;, &#x27;java&#x27;, &#x27;cpp&#x27;, &#x27;python&#x27; ]
+ */
+
+
+//array off objects
+
+const myCoding = [
+    {
+        languageName: &quot;javascript&quot;,
+        fileName: &quot;js&quot;
+    },
+    {
+        languageName: &quot;python&quot;,
+        fileName: &quot;py&quot;
+    },
+    {
+        languageName: &quot;C++&quot;,
+        fileName: &quot;cp&quot;
+    } 
+]
+
+myCoding.forEach( (item) =&gt; {
+    console.log(item.fileName);
+})
+
+/**
+Output:
+js
+py
+cp
+*/
+
+//The forEach() method is an iterative method. It calls a provided callbackFn function once for each element in an array in ascending-index order.
+
+//forEach() always returns undefined and is not chainable. 
+//Therefore we use map() and other functions
+
+//There is no way to stop or break a forEach() loop other than by throwing an exception. If you need such behaviour, the forEach() method is the wrong tool.
+
+//forEach() do not allow chaining</code></pre><h2 id="ee7a0f25-507c-426d-93c7-32251ba0d233" class="">Lect-30: <strong><strong>Filter, map and reduce in javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2a1b51d6-089f-4ac5-bb13-90056817aedf" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//filter() -- unlike forEach(), filter() returns values
+
+const myNums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+const newNums = myNums.filter( (num) =&gt; num &gt; 4)
+
+console.log(newNums);
+//[ 5, 6, 7, 8, 9, 10 ]
+
+//whenever we use {} brackets we have to use return keyword
+const newNums1 = myNums.filter( (num) =&gt; {
+    return num &gt; 4
+} )
+
+console.log(newNums1);
+//[ 5, 6, 7, 8, 9, 10 ]
+
+
+//doing same thing as above using forEach()
+
+const newNums2 = []
+
+myNums.forEach( (num) =&gt; {
+    if(num &gt; 4){
+        newNums2.push(num)
+    }
+})
+
+console.log(newNums2);
+//[ 5, 6, 7, 8, 9, 10 ]
+
+
+const books = [
+    { title: &#x27;Book One&#x27;, genre: &#x27;Fiction&#x27;, publish: 1981, edition: 2004 },
+    { title: &#x27;Book Two&#x27;, genre: &#x27;Non-Fiction&#x27;, publish: 1992, edition: 2008 },
+    { title: &#x27;Book Three&#x27;, genre: &#x27;History&#x27;, publish: 1999, edition: 2007 },
+    { title: &#x27;Book Four&#x27;, genre: &#x27;Non-Fiction&#x27;, publish: 1989, edition: 2010 },
+    { title: &#x27;Book Five&#x27;, genre: &#x27;Science&#x27;, publish: 2009, edition: 2014 },
+    { title: &#x27;Book Six&#x27;, genre: &#x27;Fiction&#x27;, publish: 1987, edition: 2010 },
+    { title: &#x27;Book Seven&#x27;, genre: &#x27;History&#x27;, publish: 1986, edition: 1996 },
+    { title: &#x27;Book Eight&#x27;, genre: &#x27;Science&#x27;, publish: 2011, edition: 2016 },
+    { title: &#x27;Book Nine&#x27;, genre: &#x27;Non-Fiction&#x27;, publish: 1981, edition: 1989 },
+  ];
+
+let userBooks = books.filter( (book) =&gt; book.genre === &#x27;History&#x27; )
+
+userBooks = books.filter( (book) =&gt; {
+    return book.publish &gt;= 2000 &amp;&amp; book.genre === &quot;Science&quot;
+} )
+
+userBooks = books.filter( (book) =&gt; book.edition &gt;= 2005 &amp;&amp; book.publish &gt;= 2000)
+console.log(userBooks);</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="775f02ec-764f-4b9b-b0b6-5b9a69d278fe" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">/*********map() method *********/
+const myNums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+const newNums = myNums.map( (num) =&gt; num + 10 )
+
+console.log(newNums); //[11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+//chaining
+const newNumChain = myNums
+                    .map( (num) =&gt; num * 10 )
+                    .map( (num) =&gt; num + 1)
+                    .filter( (num) =&gt; num &gt;= 50)
+
+console.log(newNumChain) //[ 51, 61, 71, 81, 91, 101 ]
+
+//The map() method is an iterative method. It calls a provided callbackFn function once for each element in an array and constructs a new array from the results.</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="16c9a0ad-644c-4904-b0fe-b9c7688be830" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//*************Array.reduce()********************
+const array1 = [1, 2, 3, 4, 5]
+const initialValue = 0
+const sum = array1.reduce( (accumulator , currentValue) =&gt; accumulator + currentValue , initialValue)
+
+console.log(sum); //15
+
+const arr = [1, 2, 3]
+const total = arr.reduce( function(acc, currVal) {
+    console.log(`acc = ${acc} and currVal = ${currVal}`)
+    return acc + currVal
+}, 0)
+console.log(total) 
+/*
+Output:
+acc = 0 and currVal = 1
+acc = 1 and currVal = 2
+acc = 3 and currVal = 3
+6
+*/
+
+const arr1 = [1, 2, 3, 4]
+const arr1Total = arr1.reduce( (acc, currVal) =&gt; acc + currVal , 0)
+console.log(arr1Total); //10
+
+
+const shoppingCart = [
+    {
+        itemName: &quot;js course&quot;,
+        price: 2999
+    },
+    {
+        itemName: &quot;py course&quot;,
+        price: 999
+    },
+    {
+        itemName: &quot;mobile dev course&quot;,
+        price: 5999
+    },
+    {
+        itemName: &quot;data science course&quot;,
+        price: 12999
+    },
+]
+
+const priceToPay = shoppingCart.reduce( (acc, item) =&gt; acc + item.price , 0 )
+console.log(priceToPay); //22996</code></pre><h2 id="1c9ebc87-d156-4de6-ba1f-5e3841d8d32f" class="">Lect-31: <strong><strong>DOM introduction in javascript</strong></strong></h2><ul id="522e3947-6ab5-411e-b565-df468f854cc3" class="bulleted-list"><li style="list-style-type:disc">console.log(window)</li></ul><ul id="e5b350af-f37d-4339-8f8b-ac68f5e9b294" class="bulleted-list"><li style="list-style-type:disc">console.log(window.document)<br/>or<br/>console.log(document) //gives all the HTMLs and other web page related codes <br/></li></ul><ul id="78195dad-5245-4fcf-af7a-6cb37bd099f2" class="bulleted-list"><li style="list-style-type:disc">console.dir(document)  //gives hidden information as well</li></ul><p id="26fe1811-dea8-466b-9b81-ef0a1d519887" class="">
+</p><ul id="abcad013-a0b6-4c3b-a493-abba754e9092" class="bulleted-list"><li style="list-style-type:disc">document.getElementById( element_ID )</li></ul><ul id="280e4dae-8e08-4b00-9b6f-74f9591554b8" class="bulleted-list"><li style="list-style-type:disc">let html = document.getElementById(&quot;myP&quot;).innerHTML; //this gives text inside of this myP ID</li></ul><ul id="d120922a-4cd2-4965-8101-c0fc88093d51" class="bulleted-list"><li style="list-style-type:disc">Change the HTML content of an element with id=&quot;demo”<br/>document.getElementById(&quot;demo&quot;).innerHTML = &quot;I have changed!&quot;;<br/><br/></li></ul><figure id="aeaeedfe-ea0a-4c96-87b7-9630115e4260" class="image"><a href="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%206.png"><img style="width:1056px" src="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%206.png"/></a></figure><ul id="c9362eb6-e863-477a-af88-7c649a8fa267" class="bulleted-list"><li style="list-style-type:disc">console.log(document.link) //gives all the links in the webpage.<br/>Note⇒ these links are not in the form of array , they are HTML Collection.<br/></li></ul><h2 id="42c9ca97-2cee-46cc-a43f-58dfa7d278ed" class="">Lect-32: <strong><strong>All DOM selectors NodeList and HTMLCollection</strong></strong></h2><figure id="d2b7cad1-8d17-4cf0-ba35-3775e32fd0c4" class="image"><a href="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%207.png"><img style="width:1092px" src="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%207.png"/></a></figure><h2 id="bc9a2443-3871-4eb9-b4ba-0fecd8005956" class="">Lect-33: <strong><strong>How to create a new element in DOM</strong></strong></h2><figure id="15eb9f8c-ddc1-4569-85dc-c17c60e35da1" class="image"><a href="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%208.png"><img style="width:1372px" src="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%208.png"/></a></figure><h2 id="7f9bc9fb-f878-421f-b09b-70825a95bfe3" class="">lect-34: <strong><strong>Edit and remove elements in DOM</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7baa77db-321c-406b-bd12-ce8001bbba74" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Chai aur Code | DOM&lt;/title&gt;
+&lt;/head&gt;
+&lt;body style=&quot;background-color: #212121; color: #fff;&quot;&gt;
+    &lt;ul class=&quot;language&quot;&gt;
+        &lt;li&gt;JavaScript&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/body&gt;
+&lt;script&gt;
+
+    //Add
+    function addLanguage(langName){
+        const li = document.createElement(&#x27;li&#x27;)
+        li.innerHTML = `${langName}`
+        document.querySelector(&#x27;.language&#x27;).appendChild(li)
+    }
+    addLanguage(&#x27;Python&#x27;)
+    addLanguage(&#x27;typescript&#x27;)
+
+    //above function is okay, but it is not optmized. Everytime function is called it traverse whole tree structure. So we can optimize function
+    function adddOptiLanguage(langName){
+        const li = document.createElement(&#x27;li&#x27;)
+        li.appendChild(document.createTextNode(langName))
+        document.querySelector(&#x27;.language&#x27;).appendChild(li)
+    }
+    adddOptiLanguage(&quot;golang&quot;)
+
+    //Edit
+    const secondLang = document.querySelector(&#x27;li:nth-child(2)&#x27;)
+    console.log(secondLang)
+    const newli = document.createElement(&#x27;li&#x27;)
+    newli.textContent = &quot;Mojo&quot; //newli.innerHTML = &quot;Mojo&quot;
+    secondLang.replaceWith(newli) //replace python with &#x27;Mojo&#x27;
+
+    //Edit
+    const firstLang = document.querySelector(&#x27;li:first-child&#x27;)
+    // const new_li = document.createElement(&#x27;li&#x27;)
+    // new_li.innerHTML = &quot;Typescript&quot;
+    // firstLang.replaceWith(new_li)
+    firstLang.outerHTML = &#x27;&lt;li&gt;Typescript&lt;/li&gt;&#x27; //other method
+
+    //Remove
+    const lastLang = document.querySelector(&#x27;li:last-child&#x27;)
+    lastLang.remove()
+
+
+&lt;/script&gt;
+&lt;/html&gt;</code></pre><h2 id="052302a8-e793-47c1-a154-5ea2594cb578" class="">Lect-35: <strong><strong>Let&#x27;s build 4 javascript projects for beginners</strong></strong></h2><h1 id="81371b3d-b8ca-45ea-95cb-31f04f8f2a43" class="">Projects related to DOM</h1><h2 id="4d8d5f06-e3b2-4076-855b-1050d8e6bb45" class="">Project Link</h2><p id="d3252eb8-561f-4244-acf1-96f9cbc0e6c6" class=""><a href="https://stackblitz.com/edit/dom-project-chaiaurcode?file=index.html">Click Here</a></p><h1 id="7e37f295-83c0-44d8-9718-af622cd50735" class="">Solution Code</h1><h2 id="82e96cb6-5c03-41a8-9dee-3ea610c5d3b9" class="">Project - 1 : colorChanger</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="01807802-9be3-412d-a2d1-194bde56e56f" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const buttons = document.querySelectorAll(&#x27;.button&#x27;);
+const body = document.querySelector(&#x27;body&#x27;);
+
+buttons.forEach(function (button) {
+  button.addEventListener(&#x27;click&#x27;, function (e) {
+    if (e.target.id === &#x27;grey&#x27;) {
+      body.style.backgroundColor = e.target.id;
+    }
+    if (e.target.id === &#x27;white&#x27;) {
+      body.style.backgroundColor = e.target.id;
+    }
+    if (e.target.id === &#x27;blue&#x27;) {
+      body.style.backgroundColor = e.target.id;
+    }
+    if (e.target.id === &#x27;yellow&#x27;) {
+      body.style.backgroundColor = e.target.id;
+    }
+  });
+});
+</code></pre><h2 id="969e25bd-eca8-4bcc-b900-82bdf89a6ebe" class="">Project - 2 : bmiCalculator</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0a12ae92-573c-466f-93d9-54bc5b5e30c4" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const form = document.querySelector(&#x27;form&#x27;);
+//this usecase will give you empty value
+//const height = parseInt(document.querySelector(&#x27;#height&#x27;).value)
+
+form.addEventListener(&#x27;submit&#x27;, function (e) {
+  e.preventDefault(); //method used to prevent or stop default action of form
+  const height = parseInt(document.querySelector(&#x27;#height&#x27;).value);
+  const weight = parseInt(document.querySelector(&#x27;#weight&#x27;).value);
+  const results = document.querySelector(&#x27;#results&#x27;);
+  const message = document.querySelector(&#x27;#message&#x27;);
+
+  if (height === &#x27;&#x27; || height &lt; 0 || isNaN(height)) {
+    results.innerHTML = `Please Enter valid height`;
+  } else if (weight === &#x27;&#x27; || weight &lt; 0 || isNaN(weight)) {
+    results.innerHTML = `Please Enter valid weight`;
+  } else {
+    const bmi = (weight / ((height * height) / 10000)).toFixed(2);
+    results.innerHTML = `&lt;span&gt;${bmi}&lt;/span&gt;`;
+    if (bmi &lt; 18.6) {
+      message.innerHTML = `&lt;span&gt;&lt;p&gt;You are Under Weight&lt;/p&gt;&lt;/span&gt;`;
+    } else if (bmi &gt;= 18.6 &amp;&amp; bmi &lt;= 24.9) {
+      message.innerHTML = `&lt;span&gt;&lt;p&gt;You are in Normal Range&lt;/p&gt;&lt;/span&gt;`;
+    }
+    if (bmi &gt; 24.9) {
+      message.innerHTML = `&lt;span&gt;&lt;p&gt;You are Over Weight&lt;/p&gt;&lt;/span&gt;`;
+    }
+  }
+});
+
+</code></pre><h2 id="2aea58bf-063b-4b2b-b697-30f4d246f156" class="">Project - 3 : DigitalClock</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0de550de-fab5-406a-bb43-0df2bc94fc30" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">//const clock = document.querySelector(&#x27;#clock&#x27;) //use any method getElementById() or querySelector()
+
+const clock = document.getElementById(&#x27;clock&#x27;);
+
+setInterval(function () {
+  let date = new Date();
+  //console.log(date.toLocaleTimeString())
+  clock.innerHTML = date.toLocaleTimeString();
+}, 1000);
+</code></pre><h2 id="99148e23-7dfa-4021-b70e-953ea064d54f" class="">Project - 4: Guess The Number</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="04525b81-22a6-4534-9de9-810620db90cf" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">let randomNumber = parseInt(Math.random() * 100 + 1);
+
+const submit = document.querySelector(&#x27;#subt&#x27;);
+const userInput = document.querySelector(&#x27;#guessField&#x27;);
+const guessSlot = document.querySelector(&#x27;.guesses&#x27;);
+const remaining = document.querySelector(&#x27;.lastResult&#x27;);
+const lowOrHi = document.querySelector(&#x27;.lowOrHi&#x27;);
+const startOver = document.querySelector(&#x27;.resultParas&#x27;);
+
+const p = document.createElement(&#x27;p&#x27;);
+
+let prevGuess = [];
+let numGuess = 1;
+
+let playGame = true;
+
+if (playGame) {
+  submit.addEventListener(&#x27;click&#x27;, function (e) {
+    e.preventDefault();
+    const guess = parseInt(userInput.value);
+    console.log(guess);
+    validateGuess(guess);
+  });
+}
+
+function validateGuess(guess) {
+  if (isNaN(guess) || guess === &#x27;&#x27;) {
+    alert(&#x27;Please enter a valid number&#x27;);
+  } else if (guess &lt; 1) {
+    alert(&#x27;Please enter a number greater than 0&#x27;);
+  } else if (guess &gt; 100) {
+    alert(&#x27;Please enter a number less that or equal to 100&#x27;);
+  } else {
+    prevGuess.push(guess);
+    if (numGuess === 11) {
+      displayGuess(guess);
+      displayMessage(`Game over! Random number was ${randomNumber}`);
+      endGame();
+    } else {
+      displayGuess(guess);
+      checkGuess(guess);
+    }
+  }
+}
+
+function checkGuess(guess) {
+  if (guess === randomNumber) {
+    displayMessage(`You guessed it right. You Won!!`);
+    endGame();
+  } else if (guess &lt; randomNumber) {
+    displayMessage(`Number is TOO low`);
+  } else if (guess &gt; randomNumber) {
+    displayMessage(`Number is TOO high`);
+  }
+}
+
+function displayGuess(guess) {
+  userInput.value = &#x27;&#x27;;
+  guessSlot.innerHTML += `${guess}, `;
+  numGuess++;
+  remaining.innerHTML = `${11 - numGuess}`;
+}
+
+function displayMessage(message) {
+  lowOrHi.innerHTML = `&lt;h2&gt;${message}&lt;/h2&gt;`;
+}
+
+function endGame() {
+  userInput.value = &#x27;&#x27;;
+  userInput.setAttribute(&#x27;disabled&#x27;, &#x27;&#x27;);
+  p.classList.add(&#x27;button&#x27;);
+  p.innerHTML = `&lt;h2 id=&quot;newGame&quot;&gt;Start New Game!&lt;/h2&gt;`;
+  startOver.appendChild(p);
+  playGame = false;
+
+  newGame();
+}
+
+function newGame() {
+  const newGameButton = document.querySelector(&#x27;#newGame&#x27;);
+  newGameButton.addEventListener(&#x27;click&#x27;, function (e) {
+    randomNumber = parseInt(Math.random() * 100 + 1);
+    prevGuess = [];
+    numGuess = 1;
+    guessSlot.innerHTML = &#x27;&#x27;;
+    remaining.innerHTML = `${11 - numGuess}`;
+    userInput.removeAttribute(&#x27;disabled&#x27;);
+    lowOrHi.innerHTML = &#x27;&#x27;;
+    startOver.removeChild(p);
+
+    playGame = true;
+  });
+}</code></pre><h2 id="b2671217-9df5-4458-8c7f-f70d4ef0a245" class="">Lect-36: <strong><strong>Events in Javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1ef9d71a-2d0b-41c9-b4b9-637dc63c05c5" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;htnml Events &lt;/title&gt;
+&lt;/head&gt;
+&lt;body style=&quot;background-color: #414141; color: aliceblue;&quot;&gt;
+    &lt;h2&gt;Amazing image&lt;/h2&gt;
+    &lt;div &gt;
+        &lt;ul id=&quot;images&quot;&gt;
+            &lt;li&gt;&lt;img width=&quot;200px&quot; id=&quot;photoshop&quot; src=&quot;https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load&quot; alt=&quot;photoshop&quot;&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img width=&quot;200px&quot; id=&quot;japan&quot; src=&quot;https://images.pexels.com/photos/3532553/pexels-photo-3532553.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img width=&quot;200px&quot; id=&quot;river&quot; src=&quot;https://images.pexels.com/photos/3532551/pexels-photo-3532551.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img width=&quot;200px&quot; id=&quot;owl&quot; src=&quot;https://images.pexels.com/photos/3532552/pexels-photo-3532552.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load&quot; alt=&quot;&quot; &gt;&lt;/li&gt;
+            &lt;li&gt;&lt;img width=&quot;200px&quot; id=&quot;prayer&quot; src=&quot;https://images.pexels.com/photos/2522671/pexels-photo-2522671.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;lazy=load&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a style=&quot;color: aliceblue;&quot; href=&quot;https://google.com&quot; id=&quot;google&quot;&gt;Google&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+   &lt;/div&gt;
+&lt;/body&gt;
+&lt;script&gt;
+    //way-1
+    document.getElementById(&#x27;owl&#x27;).onclick = function(){
+        alert(&quot;Owl Clicked&quot;)
+    }
+
+    //Before this two were also used
+    //attachEvent()
+    //jQuery - on
+
+    //way-2: better way
+    document.getElementById(&#x27;owl&#x27;).addEventListener(&#x27;click&#x27;, function(){
+        alert(&quot;Owl Clicked Again&quot;)
+    }, false)
+    //Note: here 3rd parameter is true/false. y default it is false
+
+    document.getElementById(&#x27;owl&#x27;).addEventListener(&#x27;click&#x27;, function(e){
+        console.log(e)
+    }, false)
+    //Note: These are some of the PointerEvents we get when we console.log(e) . [Study these for interview and projects]
+    //type, timestamp, defaultPrevented
+    //target, toElement, srcElement, currentTarget
+    //clientX, clientY, screenX, screenY
+    //altkey, ctrlkey, shiftkey, keyCode
+
+
+    /* Event Propogation: Bubbling -&gt;  niche se upar jata hai */
+    document.getElementById(&#x27;images&#x27;).addEventListener(&#x27;click&#x27;, function(e){
+        console.log(&quot;clicked inside the ul&quot;)
+    }, false)
+
+    document.getElementById(&#x27;owl&#x27;).addEventListener(&#x27;click&#x27;, function(e){
+        console.log(&quot;clicked on owl&quot;)
+    }, false)
+    //here first &quot;clicked on owl&quot; then &quot;clicked inside the ul&quot; will print
+
+
+    /* Event Propogation: Capturing -&gt; goes from top to bottom   */
+    document.getElementById(&#x27;images&#x27;).addEventListener(&#x27;click&#x27;, function(e){
+        console.log(&quot;clicked inside the ul&quot;)
+    }, true)
+
+    document.getElementById(&#x27;owl&#x27;).addEventListener(&#x27;click&#x27;, function(e){
+        console.log(&quot;clicked on owl&quot;)
+    }, true)
+    //here first &quot;clicked inside the ul&quot; then &quot;clicked on owl&quot; will print
+
+    //When we want to prevent Bubbling we use e.stopPropogation()
+    document.getElementById(&#x27;images&#x27;).addEventListener(&#x27;click&#x27;, function(e){
+        console.log(&quot;clicked inside the ul&quot;)
+    }, false)
+
+    document.getElementById(&#x27;owl&#x27;).addEventListener(&#x27;click&#x27;, function(e){
+        console.log(&quot;clicked on owl&quot;)
+        e.stopPropagation()
+    }, false)
+
+    //to prevent Capturing
+    document.getElementById(&#x27;images&#x27;).addEventListener(&#x27;click&#x27;, function(e){
+        console.log(&quot;clicked inside the ul&quot;)
+        e.stopPropagation()
+    }, true)
+
+    document.getElementById(&#x27;owl&#x27;).addEventListener(&#x27;click&#x27;, function(e){
+        console.log(&quot;clicked on owl&quot;)
+    }, true)
+
+
+    //to prevent default behaviour we use e.preventDefault()
+    document.getElementById(&#x27;google&#x27;).addEventListener(&#x27;click&#x27;, function(e){
+        e.preventDefault() //to prevent default behaviour
+        e.stopPropagation()//to stop Bubbling
+        console.log(&quot;clicked on google&quot;)
+    }, false)
+
+
+    /* Todo: to make images disapper when we click on image*/
+
+    document.querySelector(&#x27;#images&#x27;).addEventListener(&#x27;click&#x27;, function(e){
+        console.log(e.target.parentNode)
+        let removeIt = e.target.parentNode
+        removeIt.remove() //method-1
+        //removeIt.parentNode.removeChild(removeIt) //method-2
+    }, false)
+
+    //Note: Problem with above code is when we click on &#x27;li&#x27;, ul gets slected and it removes all li. --&gt; this is called Event Spill-Over
+
+    //Fix of Event Spill-Over issue
+    document.querySelector(&#x27;#images&#x27;).addEventListener(&#x27;click&#x27;, function(e){
+        console.log(e.target.tagName)
+        if(e.target.tagName === &#x27;IMG&#x27;){
+            console.log(e.target.id)
+            let removeIt = e.target.parentNode
+            removeIt.remove()
+        } 
+    }, false)
+
+&lt;/script&gt;
+&lt;/html&gt;</code></pre><p id="ff8c0dc7-f5dd-49f9-b273-86a40412fbf2" class="">
+</p><h2 id="aefcda7b-e18a-4bdd-aead-28c87d0df831" class="">Lect-37: <strong><strong>Async Javascript Fundamentals</strong></strong></h2><figure id="e5e56a76-f051-42d0-8532-a330299a3a40" class="image"><a href="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%209.png"><img style="width:1152px" src="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%209.png"/></a></figure><h2 id="595dab4b-363f-4e13-be65-9b46716e294d" class="">Lect-38: <strong><strong>2 projects with Async JS</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="eb9a0dcf-a664-4f72-b756-0670c9f741ac" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">setTimeout(function(){
+            console.log(&quot;Hitesh&quot;)
+       }, 2000)</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f7f419e1-51bd-43f1-bb3d-12bcd6644b14" class="code"><code class="language-JavaScript" style="white-space:pre-wrap;word-break:break-all">const sayHitesh = function(){
+            console.log(&quot;Hitesh&quot;)
+        }
+
+        setTimeout(sayHitesh, 2000)</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="27a2cc66-fe7d-4c42-aae2-a2a0bf2fe40d" class="code"><code class="language-JavaScript">const changeHeading = function(){
+            document.querySelector(&#x27;h1&#x27;).innerHTML = &quot;Best JS Series&quot;
+        }
+
+        setTimeout(changeHeading, 2000)</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="23d8d557-514e-4b41-a984-797729d97d8a" class="code"><code class="language-HTML">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Chai aur Code&lt;/h1&gt;
+    &lt;button id=&quot;stop&quot;&gt;Stop&lt;/button&gt;
+    
+&lt;/body&gt;
+
+    &lt;script&gt;
+        /*****setTimeout()*******/
+        const sayHitesh = function(){
+            console.log(&quot;Hitesh&quot;)
+        }
+
+        const changeHeading = function(){
+            document.querySelector(&#x27;h1&#x27;).innerHTML = &quot;Best JS Series&quot;
+        }
+
+        const changeMe = setTimeout(changeHeading, 2000)
+
+        //clearTimeout() -&gt; this need reference of setTimeout(), so we have to store it then only we can use in clearTimeout()
+        document.querySelector(&#x27;#stop&#x27;).addEventListener(&#x27;click&#x27;, function(){
+            clearTimeout(changeMe)
+            console.log(&quot;STOPPED!&quot;)
+        })
+        //now if we press Stop button before 2 second then changeHeading will not run
+
+
+    &lt;/script&gt;
+
+&lt;/html&gt;</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="90b7be98-316e-47cd-be2b-95881acc9793" class="code"><code class="language-HTML">/**setInterval()**/
+        const sayHi = function(str){
+            console.log(str, Date.now())
+        }
+
+        const intervalId = setInterval(sayHi, 1000, &quot;Hi&quot;)
+        //it has three parameters
+
+        //clearInterval()
+        clearInterval(intervalId)</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="deb9d116-ea4e-4773-b7f7-bfc167504bee" class="code"><code class="language-HTML">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Chai aur JavaScript&lt;/h1&gt;
+    &lt;button id=&quot;start&quot;&gt;Start&lt;/button&gt;
+    &lt;button id=&quot;stop&quot;&gt;Stop&lt;/button&gt;
+    
+&lt;/body&gt;
+
+    &lt;script&gt;
+        
+        /******ToDo - Start printing when Start button is pressed and Stop when Stop is clicked*******/
+        const printMessage = function(str){
+            console.log(str, Date.now())
+        }
+
+        let intervalID
+        document.querySelector(&#x27;#start&#x27;).addEventListener(&#x27;click&#x27;, function(){
+            intervalID = setInterval(printMessage, 1000, &quot;Hi&quot;)
+        })
+
+        document.querySelector(&#x27;#stop&#x27;).addEventListener(&#x27;click&#x27;, function(){
+            clearInterval(intervalID)
+            console.log(&quot;Stopped!&quot;)
+        })
+
+    &lt;/script&gt;
+
+&lt;/html&gt;</code></pre><h3 id="b94ede07-903a-48dc-81d8-cdc4dfb4c579" class="">Project: Unlimited Colors</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4e4f5b2d-c346-480a-baf9-a8a224b99238" class="code"><code class="language-JavaScript">//generate a random color
+const randomColor = function(){
+    const hex = &quot;0123456789ABCDEF&quot;
+    let color = &quot;#&quot;
+    for(let i = 0; i &lt; 6; i++){
+        let randNum = Math.floor(Math.random() * 16)
+        color += hex[randNum]
+    }
+    return color
+}
+
+let intervalId;
+
+const startChangingColor = function(){
+    if(!intervalId)
+        intervalId = setInterval(changeBgColor, 1000)
+
+    function changeBgColor(){
+        document.querySelector(&#x27;body&#x27;).style.backgroundColor = randomColor()
+    }
+}
+
+const stopChangingColor = function(){
+    clearInterval(intervalId)
+    intervalId = null
+}
+
+document.querySelector(&#x27;#start&#x27;).addEventListener(&#x27;click&#x27;, startChangingColor)
+
+document.querySelector(&#x27;#stop&#x27;).addEventListener(&#x27;click&#x27;, stopChangingColor)</code></pre><h3 id="9c182942-0721-44bb-9593-3c12249c3d49" class="">Project: Keyboard Check</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="35cbde16-ab12-41b6-9bf6-ea82afbe8719" class="code"><code class="language-JavaScript">const insert = document.getElementById(&#x27;insert&#x27;)
+
+window.addEventListener(&#x27;keydown&#x27;, (e) =&gt; {
+    insert.innerHTML = `
+        &lt;div class=&#x27;color&#x27;&gt;
+            &lt;table&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;Key&lt;/th&gt;
+                    &lt;th&gt;KeyCode&lt;/th&gt;
+                    &lt;th&gt;Code&lt;/th&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;${e.key === &#x27; &#x27; ? &#x27;Space&#x27; : e.key}&lt;/td&gt;
+                    &lt;td&gt;${e.keyCode}&lt;/td&gt;
+                    &lt;td&gt;${e.code}&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;
+        &lt;/div&gt;
+    `
+})</code></pre><h2 id="533175c2-e7cc-491b-8dd5-d23792b826d1" class="">Lect-39: <strong><strong>API request and V8 engine</strong></strong></h2><h3 id="45ca2e72-50b7-45a3-b490-760742b3625b" class="">API:</h3><ul id="7dc3bf54-eacc-4ee9-a2b4-b24596fcdf3b" class="bulleted-list"><li style="list-style-type:disc">RANDOM USER GENERATOR: <a href="https://randomuser.me/">https://randomuser.me/</a></li></ul><ul id="aeb14324-4dd0-463d-9d13-8dd283ae27dd" class="bulleted-list"><li style="list-style-type:disc">JSON Formatter: <a href="https://jsonformatter.org/">https://jsonformatter.org/</a> <br/>use this to read data from API<br/></li></ul><p id="5f946d30-8fc5-4afb-9155-7298d35b568b" class="">—&gt; API Request to get follower count from GitHub</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="52791c77-138f-4a15-8f9b-f674fc4972e1" class="code"><code class="language-JavaScript">&lt;script&gt;
+const requestUrl = &#x27;https://api.github.com/users/hiteshchoudhary&#x27;
+const xhr = new XMLHttpRequest();
+xhr.open(&#x27;GET&#x27;, requestUrl)
+xhr.onreadystatechange = function(){
+console.log(xhr.readyState);
+if (xhr.readyState === 4) {
+const data = JSON.parse(this.responseText)
+console.log(typeof data);
+console.log(data.followers);
+}
+}
+xhr.send();
+&lt;/script&gt;</code></pre><h2 id="5b9c942b-e625-4e02-956c-0d17895c126f" class="">Lect-40: Promise in Javascript</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8857342c-d21f-4509-bda9-ad16778aaca3" class="code"><code class="language-JavaScript">/*Promise: The Promise object represents the eventual completion (or failure) of an asynchronous operation and its resulting value. */
+
+//creating Promise
+const promiseOne = new Promise(function(resolve, reject){
+    //Do an async task
+    //DB calls, Cryptography, network
+
+    setTimeout(function(){
+        console.log(&#x27;Async task is complete&#x27;)
+        resolve() //connecting resolve with then()
+    },1000)
+})
+
+//promise consumption
+//Note: resolve is connected/associated with then()
+promiseOne.then(function(){
+    console.log(&quot;Promise Consumed&quot;)
+})
+
+
+//creating and consuming promise together
+new Promise(function(resolve, reject){
+    setTimeout(function(){
+        console.log(&quot;Async Task 2 is complete&quot;)
+        resolve()
+    }, 1000)
+}).then(function(){
+    console.log(&quot;Async 2 resolved&quot;);
+})
+
+
+//how data is passed?
+//whatever argument we pass in resolve() during promise creation, it will be used as parameter during promise consumption
+const promiseThree = new Promise(function(resolve, reject){
+    setTimeout(function(){
+        resolve({username: &quot;Chai&quot;, email: &quot;chai@example.com&quot;})
+    }, 1000)
+})
+
+promiseThree.then(function(user){
+    console.log(user);
+    //O/P: { username: &#x27;Chai&#x27;, email: &#x27;chai@example.com&#x27; }
+})
+
+
+//use of reject(), finally() and chaining concept
+const promiseFour = new Promise(function(resolve, reject){
+    setTimeout(function(){
+        let error = false
+        //let error = true
+        if(!error){
+            resolve({username: &quot;hitesh&quot;, password: &quot;123&quot;})
+        }
+        else{
+            reject(&quot;ERROR: Something went wrong&quot;)
+        }
+    }, 1000)
+})
+
+promiseFour.then((user) =&gt; {
+    console.log(user)
+    return user.username //value returned from here will be used as argument in the next then() =&gt; this is called chaining
+}).then((username) =&gt; {
+    console.log(username)
+}).catch(function(error){
+    console.log(error)
+}).finally( () =&gt; console.log(&quot;The promise is either resolved or rejected&quot;))
+
+//reject() is connected with catch()
+//catch() is executed when there is an error and resolve failed to execute
+//finally(): to tell if the task is done either resolved or rejected. Ye toh hoga hi hoga. It is a kind of default
+
+
+//using async, await
+const promiseFive = new Promise(function(resolve, reject){
+    setTimeout(function(){
+        let error = true
+        if(!error){
+            resolve({username: &quot;javascript&quot;, password: &quot;js123&quot;})
+        }
+        else{
+            reject(&quot;ERROR: JS went wrong&quot;)
+        }
+    }, 1000)
+})
+
+async function consumePromiseFive(){
+    try {
+        const response = await promiseFive
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+consumePromiseFive()
+
+
+//fetch()
+async function getAllUsers(){
+    try {
+        const response = await fetch(&#x27;https://jsonplaceholder.typicode.com/users&#x27;)
+
+        const data = await response.json() //json conversion also takes time so we have to use await
+        console.log(data);
+    } catch (error) {
+        console.log(&quot;ERROR:&quot;, error);
+    }
+}
+
+getAllUsers()
+
+//doing same thing as above using then(), catch()
+fetch(&#x27;https://jsonplaceholder.typicode.com/users&#x27;)
+.then((response) =&gt; {
+    return response.json()
+})
+.then((data) =&gt; {
+    console.log(data);
+})
+.catch((error) =&gt; {
+    console.log(error);
+})</code></pre><h2 id="68d2745f-9cf7-4b59-8c39-b49778b482cc" class="">Lect-41: <strong>Now you know fetch in javascript</strong></h2><figure id="552ff6b0-cdfe-4096-be02-f83a23834635" class="image"><a href="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%2010.png"><img style="width:624px" src="JavaScript%20Notes-Chai%20Aur%20Code%2043829fc91eb64951aa5ba1d8dd27358f/Untitled%2010.png"/></a></figure><h2 id="e5940075-55d3-4f40-9efa-18e08aff3f7e" class="">Lect-42: <strong><strong>Object Oriented in Javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="bd65a946-a6f1-46ae-88af-8c6f2d611130" class="code"><code class="language-Markdown"># javascript and classes
+
+## OOP
+
+## Object
+- collection of properties and methods
+- toLowerCase
+
+## why use OOP
+
+## parts of OOP
+Object literal 
+
+- Constructor function
+- Prototypes
+- Classes
+- Instances (new, this)
+
+
+## 4 pillars
+Abstraction
+Encapsulation
+Inheritance
+Polymorphism</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7a0296d4-1f60-4a03-b476-ed8eae8bf964" class="code"><code class="language-JavaScript">//object literal
+const user = {
+    username: &quot;hitesh&quot;,
+    loginCount: 8,
+    signedIn: true,
+
+    getUserDetails: function(){
+        console.log(&quot;Got user details from database&quot;);
+
+        //this: this refers to current context
+        console.log(this); //this will give current object
+        console.log(`Username: ${this.username}`);
+    }
+}
+
+console.log(user.username);
+console.log(user.getUserDetails());
+
+
+//Constructor function
+function User(username, loginCount, isLoggedIn){
+    this.username = username;
+    this.loginCount = loginCount;
+    this.isLoggedIn = isLoggedIn;
+
+    this.greeting = function(){
+        console.log(`Welcome ${this.username}`);
+    }
+
+    return this; //by default also it returns this only
+}
+
+const userOne = new User(&quot;hitesh&quot;, 12, true)
+const userTwo = new User(&quot;ChaiAurCode&quot;, 100, false)
+console.log(userOne);
+console.log(userTwo);
+
+console.log(userOne.constructor) //[Function: User]
+
+console.log(userOne instanceof User); //true
+
+
+/*new keyword: 
+Step-1: when new is used an empty object is created, which is called an instance
+Step-2: a constructor function is called
+Step-3: this is injected
+Step-4:you get whatever is in the function
+*/</code></pre><h2 id="6f15e234-bef2-48b1-9c8c-7ac70a005239" class="">Lect-43: <strong><strong>Magic of Prototype in javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0aafe962-d12e-40d6-aeed-c8d9afe6d03c" class="code"><code class="language-JavaScript">function multipleBy5(num){
+    return num * 5;
+}
+
+multipleBy5.power = 2
+
+console.log(multipleBy5(5)); //25
+console.log(multipleBy5.power); //2
+console.log(multipleBy5.prototype); //{}
+
+//Everything in javascript in an object at the end.
+
+//function is a function. But it is also an object in javascript. Anything in javascript we can make behave like an object.
+
+
+//injecting methods in our own created function
+function createUser(username, score){
+    this.username = username
+    this.score = score
+}
+
+createUser.prototype.increment = function(){
+    this.score++
+}
+
+createUser.prototype.printMe = function(){
+    console.log(`Price is ${this.score}`);
+}
+
+const chai = new createUser(&quot;Chai&quot;, 25)
+const tea = new createUser(&quot;Tea&quot;, 250)
+
+chai.printMe()
+tea.printMe()
+
+/*
+
+Here is what happens behind the scenes when the new keyword is used:
+
+A new object is created: The new keyword initiates the creation of a new Javascript object.
+
+A prototype is linked: The newly created object gets linked to the prototype property of the constructor function. This means that it has access to properties and methods defined on the constructor&#x27;s prototype.
+
+Th constructor is called: The constructor function is called with the specified arguments and this is bound to the newly created object. If no explicit return value is specified from the constructor. Javascript assumes this, the newly created object, to be the intended return value.
+
+The new object is returned: After the constructor function has been called, if it doesn&#x27;t return a non-primitive value( object, array, function, etc.), the newly created object is returned.
+
+*/</code></pre><h3 id="617207dc-ab0e-4ff7-9a02-e5bf874e0159" class="">Prototype:</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f8633402-1acf-4699-bce1-62b7ada28f22" class="code"><code class="language-JavaScript">let myName = &quot;hitesh    &quot;
+let myChannel = &quot;Chai      &quot;
+
+//we want to get true length of the word, we can do it by below method 
+console.log(myName.trim().length);
+
+//[BUT we want to create a function that can perform this task]
+//console.log(myName.trueLength())
+
+
+
+let myHeros = [&quot;thor&quot;, &quot;spiderman&quot;]
+
+
+let heroPower = {
+    thor: &quot;hammer&quot;,
+    spiderman: &quot;sling&quot;,
+
+    getSpiderPower: function(){
+        console.log(`Spidy power is ${this.spiderman}`);
+    }
+}
+
+Object.prototype.hitesh = function(){
+    console.log(`hitesh is present in all objects`);
+}
+
+Array.prototype.heyHitesh = function(){
+    console.log(`Hitesh says hello`);
+}
+
+// heroPower.hitesh()
+// myHeros.hitesh()
+// myHeros.heyHitesh()
+// heroPower.heyHitesh()
+
+// inheritance
+//proto-typical inhertance: how one object can access properties of some other objects
+
+const User = {
+    name: &quot;chai&quot;,
+    email: &quot;chai@google.com&quot;
+}
+
+const Teacher = {
+    makeVideo: true
+}
+
+const TeachingSupport = {
+    isAvailable: false
+}
+
+const TASupport = {
+    makeAssignment: &#x27;JS assignment&#x27;,
+    fullTime: true,
+    __proto__: TeachingSupport
+}
+
+Teacher.__proto__ = User //Teacher can access properties of User also
+
+//But above used syntax is outdated
+
+// modern syntax
+Object.setPrototypeOf(TeachingSupport, Teacher)
+//now TeachingSupport can access all properties of Teacher also
+
+
+//Todo that we wanted to do at starting of the code[Get true length of string]
+let anotherUsername = &quot;ChaiAurCode     &quot;
+
+String.prototype.trueLength = function(){
+    console.log(`${this}`);
+    console.log(`True length is: ${this.trim().length}`);
+}
+
+anotherUsername.trueLength()
+&quot;hitesh&quot;.trueLength()
+&quot;iceTea&quot;.trueLength()</code></pre><h2 id="f93450e9-ef64-4700-a7d7-fa80161d9525" class="">Lect-44: <strong><strong>Call and this in javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="cd49c1d4-4b56-41fe-a9d2-ea9402859081" class="code"><code class="language-JavaScript">function SetUsername(username){
+    //comples DB calls(suppose)
+    this.username = username
+    console.log(&quot;called&quot;);
+}
+
+function createUser(username, email, password){
+    //SetUsername(username) //here SetUsername function is called but as soon as its execution is over, Execution context goes out of call stack and all the context is lost.
+    //Therefore we are not able to access variables inside it
+
+    //Therefore to make it work properly we have to hold and keep its refernce, for this we use call()
+
+    //SetUsername.call(username)//only call() also not sufficient, we have to pass current this context
+    SetUsername.call(this, username)
+
+    this.email = email
+    this.password = password
+}
+
+const chai = new createUser(&quot;chai&quot;, &quot;chai@fb.com&quot;, &quot;123@1&quot;)
+console.log(chai);</code></pre><h2 id="9f3319a1-179f-4a28-8760-5012aa0732f9" class="">Lect-45: <strong><strong>Class constructor and static</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="87dfcde5-19f6-493d-90e6-c6111d7c4d92" class="code"><code class="language-JavaScript">//ES6
+
+//inside a class a fucntion is called method
+
+class User{
+    constructor(username, email, password){
+        this.username = username
+        this.email = email
+        this.password = password
+    }
+
+    encryptPassword(){
+        return `${this.password}abc#`
+    }
+
+    changeUsername(){
+        return `${this.username.toUpperCase()}`
+    }
+}
+
+const chai = new User(&quot;Chai&quot;, &quot;chai@gmail.com&quot;, &quot;1234@1&quot;)
+
+console.log(chai.encryptPassword());
+console.log(chai.changeUsername());
+
+
+//behind the scene
+//if class is not available this is how codes were before
+
+function User1(username, email, password){
+    this.username = username
+    this.email = email
+    this.password = password
+}
+
+Object.prototype.encryptPassword = function(){
+    return `${this.password}abc#`
+}
+
+Object.prototype.changeUsername = function(){
+    return `${this.username.toUpperCase()}`
+}
+
+const tea = new User1(&quot;Tea&quot;, &quot;tea@gmail.com&quot;, &quot;123tea@&quot;)
+
+console.log(tea.encryptPassword());
+console.log(tea.changeUsername());</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="bc415304-7448-4a48-82cc-abefe3adc2c1" class="code"><code class="language-JavaScript">//inheritance
+
+class User{
+    constructor(username){
+        this.username = username
+    }
+    logMe(){
+        console.log(`USER NAME is ${this.username}`);
+    }
+}
+
+class Teacher extends User{
+    constructor(username, email, password){
+        super(username)
+        this.email = email
+        this.password = password
+    }
+
+    addCourse(){
+        console.log(`A new course is added by ${this.username}`);
+    }
+}
+
+const chai = new Teacher(&quot;Chai&quot;, &quot;chai@gmai.com&quot;, &quot;123&quot;)
+
+chai.addCourse()
+chai.logMe()
+
+const masalaChai = new User(&quot;masalaChai&quot;)
+
+masalaChai.logMe()
+//masalaChai.addCourse() //no access
+
+console.log(chai instanceof Teacher); //true
+console.log(chai instanceof User); //true
+console.log(masalaChai instanceof User); //true
+console.log(masalaChai instanceof Teacher); //false</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="bec2404a-fad8-497a-aa95-dfbd0c85b773" class="code"><code class="language-JavaScript">//static properties
+
+//static: to prevent access to a method we use static
+
+class User{
+    constructor(username){
+        this.username = username
+    }
+
+    logMe(){
+        console.log(`Username: ${this.username}`);
+    }
+
+    static createId(){
+        return `123`
+    }
+}
+
+const hitesh = new User(&quot;hitesh&quot;)
+
+hitesh.logMe()///logMe() is accessible
+
+//console.log(hitesh.createId()); //createId() method cant be accessed now. Because it is static
+
+class Teacher extends User{
+    constructor(username, email){
+        super(username)
+        this.email = email
+    }
+}
+
+const iphone = new Teacher(&quot;iphone&quot;, &quot;i@phone.com&quot;)
+
+iphone.logMe() //logMe() is accessible
+
+//console.log(iphone.createId()); //createId() method cant be accessed now. Because it is static
+
+//Note: static is used to prevent inheritance</code></pre><h2 id="96476b0a-a9f3-46bb-8290-aac09d0668e9" class="">Lect-46: <strong><strong>Bind in javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5cbdbd4a-a448-46d6-98c9-b3d691d38f7b" class="code"><code class="language-HTML">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;React&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;button&gt;Button Clicked&lt;/button&gt;
+&lt;/body&gt;
+&lt;script&gt;
+    class React {
+        constructor(){
+            this.library = &quot;React&quot;
+            this.server = &quot;https://localhost:300&quot;
+
+            //requirement
+            document
+                .querySelector(&#x27;button&#x27;)
+                .addEventListener(&#x27;click&#x27;, this.handleClick.bind(this))
+
+        }
+        handleClick(){
+            console.log(&quot;button clicked&quot;);
+            console.log(this.server);
+        }
+    }
+
+    const app = new React()
+&lt;/script&gt;
+&lt;/html&gt;</code></pre><h2 id="03a46958-69ba-4807-b634-67f9c7e07442" class="">Lect-47: <strong><strong>Now you know Objects in Javascript</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f7274382-0065-4ace-b07d-168ba8a3fb14" class="code"><code class="language-JavaScript">//Can we change the value of PI? If yes, how? If no, why?
+
+//Ans: We cant change the value of PI
+
+console.log(Math.PI); //3.141592653589793
+Math.PI = 5
+console.log(Math.PI); //3.141592653589793
+
+//Why? beacuse
+const descripter = Object.getOwnPropertyDescriptor(Math, &quot;PI&quot;)
+
+console.log(descripter);
+/*
+{
+  value: 3.141592653589793,
+  writable: false,
+  enumerable: false,
+  configurable: false
+}
+*/
+//beacuse writable is set to false and we cant change this writable property. So we cant change value of PI
+
+
+
+const chai = {
+    name: &quot;ginger chai&quot;,
+    price: 250,
+    isAvailable: true,
+
+    orderChai: function(){
+        console.log(&quot;chai nahi bani&quot;);
+    }
+}
+
+console.log(Object.getOwnPropertyDescriptor(chai, &quot;name&quot;));
+/*
+{
+  value: &#x27;ginger chai&#x27;,
+  writable: true,
+  enumerable: true,
+  configurable: true
+}
+*/
+
+//here we can enumerate chai object. Beacuse enumerable is true
+for(let [key, value] of Object.entries(chai)){
+    if(typeof value !== &#x27;function&#x27;){
+        console.log(`${key} : ${value}`);
+    }
+}
+
+//here we disable &#x27;name&#x27; property
+Object.defineProperty(chai, &#x27;name&#x27;, {
+    enumerable: false
+})
+
+console.log(Object.getOwnPropertyDescriptor(chai, &quot;name&quot;));
+/*
+{
+  value: &#x27;ginger chai&#x27;,
+  writable: true,
+  enumerable: false,
+  configurable: true
+}
+*/
+
+//here we cant enumerate &#x27;name&#x27; property of chai object. Beacuse enumerable is set to false
+for(let [key, value] of Object.entries(chai)){
+    if(typeof value !== &#x27;function&#x27;){
+        console.log(`${key} : ${value}`);
+    }
+}</code></pre><h2 id="c9e0d7e2-750e-4a58-9266-76869547a97d" class="">Lect-48: <strong><strong>Getter Setter and Stack Overflow</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4916668c-68e1-4963-a399-313e3e7ff7d6" class="code"><code class="language-JavaScript">//getter and setter
+//name of the method is same as property for both get and set
+//both get and set comes together
+
+//Note: this._password is used inside get and set. If we use this.password it will throw error. Because we are setting same value twice once in constrcutor and again in set() method
+
+//class based syntax--&gt; mostly this method is used 95% time
+class User{
+    constructor(email, password){
+        this.email = email
+        this.password = password
+    }
+
+    get email(){
+        return this._email.toUpperCase()
+    }
+
+    set email(value){
+        this._email = value
+    }
+
+    get password(){
+        return `${this._password}@123`
+    }
+
+    set password(value){
+        this._password = value
+    }
+}
+
+const chai = new User(&quot;chai@ai.com&quot;, &quot;abc&quot;)
+console.log(chai.email)
+console.log(chai.password)
+
+
+//Proposal: ES2022 - use # to make private</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="bf26b98c-f676-4dde-84f5-66148aed66c3" class="code"><code class="language-JavaScript">//funcstion based syntax for getter and setter 
+//old way of doing
+
+function User(email, password){
+    this._email = email;
+    this._password = password
+
+    Object.defineProperty(this, &#x27;email&#x27;, {
+        get: function(){
+            return this._email.toUpperCase()
+        },
+        set: function(value){
+            this._email = value
+        }
+    })
+    Object.defineProperty(this, &#x27;password&#x27;, {
+        get: function(){
+            return this._password.toUpperCase()
+        },
+        set: function(value){
+            this._password = value
+        }
+    })
+
+}
+
+const chai = new User(&quot;chai@chai.com&quot;, &quot;chai&quot;)
+
+console.log(chai.email);</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fe82fef1-f482-4de0-8c1e-81246df98cfe" class="code"><code class="language-JavaScript">//object based syntax
+//old way
+const User = {
+    _email: &#x27;h@hc.com&#x27;,
+    _password: &quot;abc&quot;,
+
+
+    get email(){
+        return this._email.toUpperCase()
+    },
+
+    set email(value){
+        this._email = value
+    }
+}
+
+const tea = Object.create(User)
+console.log(tea.email);</code></pre><h2 id="a19e1386-3d60-454b-a23b-75b4df2a6cdd" class="">Lect-49: <strong><strong>Lexical scoping and Closure</strong></strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a4fe8383-1fd5-4d80-87cb-d6568201660b" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;!--
+A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function&#x27;s scope from an inner function. In JavaScript, closures are created every time a function is created, at function creation time.
+--&gt;
+
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Closure&lt;/title&gt;
+&lt;/head&gt;
+&lt;body style=&quot;background-color: #313131;&quot;&gt;
+    &lt;button id=&quot;orange&quot;&gt;Orange&lt;/button&gt;
+    &lt;button id=&quot;green&quot;&gt;Green&lt;/button&gt;
+
+    
+&lt;/body&gt;
+&lt;script&gt;
+    //Lexical scoping: username of outer function can be accessed by inner function
+    function outer(){
+        let username = &quot;chai&quot;
+        function inner(){
+            console.log(&quot;Inner:&quot;,username);
+        }
+        inner()
+    }
+    outer()
+    //console.log(&quot;TOO OUTER:&quot;, username); //here username cant be accessed. Out of scope
+
+
+    //CLOSURE concept:
+    function makeFunc(){
+        const name = &quot;Mozilla&quot;
+        function displayName(){
+            console.log(name)
+        }
+        return displayName;
+    }
+
+    const myFunc = makeFunc()
+    myFunc()
+
+    /*
+    - jab displayName return krenge toh sirf displayName ka reference nh jyega, uska outer function bhi if exist krta h, uska bhi pura scope jayega. Because of Lexical Scoping.
+    - Sirf execution context nahi jaata hai , pura ka pura lexical scope jata hai
+    - Closure ka matlab hai jab aap pura ka pura function hi return kr dete ho toh sirf function return nh hota h, Lexical scope return hota hai
+    */
+&lt;/script&gt;
+
+&lt;!--Note : you can write as many script tag as you want--&gt;
+&lt;script&gt;
+    // document.getElementById(&#x27;orange&#x27;).onclick = function(){
+    //     document.body.style.backgroundColor = &#x27;orange&#x27;
+    // }
+    // document.getElementById(&#x27;green&#x27;).onclick = function(){
+    //     document.body.style.backgroundColor = &#x27;green&#x27;
+    // }
+    //what if you have 500 buttons? Writing again and agian is not good idea. We are breaking DRY(Dont Repeat Yourself) principle
+
+
+    /*Closure concept in practical*/
+
+    //this wont work as desired. So we have to use Closure here
+    // function clickHandler(color){
+    //     document.body.style.backgroundColor = `${color}`
+    // }
+
+    // document.getElementById(&#x27;orange&#x27;).onclick = clickHandler(&quot;orange&quot;)
+
+    //Using Closure
+    function clickHandler(color){
+        return function(){
+            document.body.style.backgroundColor = `${color}`
+        }
+    }
+
+    document.getElementById(&#x27;orange&#x27;).onclick = clickHandler(&#x27;orange&#x27;)
+    document.getElementById(&#x27;green&#x27;).onclick = clickHandler(&#x27;green&#x27;)
+
+&lt;/script&gt;
+
+&lt;/html&gt;</code></pre><h2 id="727e00f1-40c4-4fba-b28f-4d9aef6f1128" class="">Lect-50: <strong><strong>Javascript ends with a story</strong></strong></h2><ul id="511ab0c6-2602-4e4a-9fec-d3d25706e108" class="bulleted-list"><li style="list-style-type:disc">Story of <strong>Michael Phelps: prepare for unforseen circumstances.</strong></li></ul><ul id="55eb68c2-a291-4695-a4e7-42572c5acf15" class="bulleted-list"><li style="list-style-type:disc">Preparation is the key.</li></ul><ul id="4185e9a1-522c-4c33-a1eb-65d47d47dd62" class="bulleted-list"><li style="list-style-type:disc">You can’t be taught everything you learn by doing things on your own.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
